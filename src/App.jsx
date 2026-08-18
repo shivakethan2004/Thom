@@ -11,10 +11,11 @@ import EntryScreen from "./components/EntryScreen/EntryScreen";
 import { motion as motionConfig } from "./config/motion";
 
 import Home from "./pages/Home";
-import Catalog from "./pages/Catalog";
-import About from "./pages/About";
+import Artist from "./pages/Artist";
+import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
-
+import Stories from "./pages/Stories";
+import Films from "./pages/Films";
 export default function App() {
   const location = useLocation();
 
@@ -102,23 +103,38 @@ export default function App() {
             />
 
             <Route
-              path="/catalog"
+              path="/the-artist"
               element={
                 <PageTransition>
-                  <Catalog />
+                  <Artist />
                 </PageTransition>
               }
             />
 
             <Route
-              path="/about"
+              path="/testimonials"
               element={
                 <PageTransition>
-                  <About />
+                  <Testimonials />
                 </PageTransition>
               }
             />
-
+            <Route
+              path="/stories"
+              element={
+                <PageTransition>
+                  <Stories />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/films"
+              element={
+                <PageTransition>
+                  <Films />
+                </PageTransition>
+              }
+            />
             <Route
               path="/contact"
               element={

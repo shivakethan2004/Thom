@@ -1,646 +1,240 @@
-/* =========================================================
-   THE HOUSE OF MAYA
-   ENTRY SCREEN
-   ========================================================= */
+  /* =========================================================
+    THE HOUSE OF MAYA
+    ENTRY SCREEN
+    ========================================================= */
 
-:root {
-  --color-olive: #596341;
-  --color-cream: #fdfcf3;
-  --color-sand: #e0ceb6;
-  --color-grey: #a8a8a2;
-  --color-dark: #232420;
+  :root {
+    --color-olive: #596341;
+    --color-cream: #fdfcf3;
+    --color-sand: #e0ceb6;
+    --color-grey: #a8a8a2;
+    --color-dark: #232420;
 
-  --font-display: "Gilmer", "Georgia", serif;
-  --font-body: "NCL Gasdrifo", "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Gilmer", "Georgia", serif;
+    --font-body: "NCL Gasdrifo", "Helvetica Neue", Arial, sans-serif;
 
-  --entry-gap: clamp(5px, 0.45vw, 10px);
-}
+    --entry-gap: clamp(5px, 0.45vw, 10px);
+  }
 
-/* =========================================================
-   ENTRY SCREEN ROOT
-   ========================================================= */
+  /* =========================================================
+    ENTRY SCREEN ROOT
+    ========================================================= */
 
-.entry-screen {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
+  .entry-screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
 
-  background: var(--color-cream);
-  color: var(--color-dark);
+    background: var(--color-cream);
+    color: var(--color-dark);
 
-  isolation: isolate;
+    isolation: isolate;
 
-  opacity: 0;
-  transform: scale(1.015);
+    opacity: 0;
+    transform: scale(1.015);
 
-  transition:
-    opacity 700ms ease,
-    transform 900ms cubic-bezier(0.77, 0, 0.18, 1);
+    transition:
+      opacity 700ms ease,
+      transform 900ms cubic-bezier(0.77, 0, 0.18, 1);
 
-  will-change: transform, opacity;
-}
+    will-change: transform, opacity;
+  }
 
-.entry-screen--loaded {
-  opacity: 1;
-  transform: scale(1);
-}
+  .entry-screen--loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
 
-.entry-screen--exiting {
-  transform: translateY(-100%);
-  transition:
-    transform 800ms cubic-bezier(0.77, 0, 0.18, 1);
+  .entry-screen--exiting {
+    transform: translateY(-100%);
+    transition:
+      transform 800ms cubic-bezier(0.77, 0, 0.18, 1);
 
-  pointer-events: none;
-}
-/* =========================================================
-   BACKGROUND
-   ========================================================= */
+    pointer-events: none;
+  }
+  /* =========================================================
+    BACKGROUND
+    ========================================================= */
 
-.entry-screen::before {
-  content: "";
+  .entry-screen::before {
+    content: "";
 
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
 
-  z-index: -4;
+    z-index: -4;
 
-  background: var(--color-cream);
-}
+    background: var(--color-cream);
+  }
 
-/* Subtle architectural grid */
+  /* Subtle architectural grid */
 
-.entry-screen::after {
-  content: "";
+  .entry-screen::after {
+    content: "";
 
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
 
-  z-index: -3;
+    z-index: -3;
 
-  pointer-events: none;
+    pointer-events: none;
 
-  opacity: 0.4;
+    opacity: 0.4;
 
-  background-image:
-    linear-gradient(to right,
-      rgba(89, 99, 65, 0.075) 1px,
-      transparent 1px),
-    linear-gradient(to bottom,
-      rgba(89, 99, 65, 0.075) 1px,
-      transparent 1px);
+    background-image:
+      linear-gradient(to right,
+        rgba(89, 99, 65, 0.075) 1px,
+        transparent 1px),
+      linear-gradient(to bottom,
+        rgba(89, 99, 65, 0.075) 1px,
+        transparent 1px);
 
-  background-size:
-    clamp(70px, 8vw, 140px) clamp(70px, 8vw, 140px);
+    background-size:
+      clamp(70px, 8vw, 140px) clamp(70px, 8vw, 140px);
 
-  mask-image: linear-gradient(to bottom,
-      transparent 0%,
-      black 18%,
-      black 82%,
-      transparent 100%);
-}
+    mask-image: linear-gradient(to bottom,
+        transparent 0%,
+        black 18%,
+        black 82%,
+        transparent 100%);
+  }
 
-/* =========================================================
-   MASONRY PHOTO GRID
-   ========================================================= */
+  /* =========================================================
+    MASONRY PHOTO GRID
+    ========================================================= */
 
-.masonry-grid {
-  position: absolute;
-  inset: 0;
-
-  z-index: 0;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr) minmax(260px, 0.72fr) minmax(0, 1fr);
-
-  grid-template-rows:
-    0.72fr 1fr 1fr 0.82fr;
-
-  gap: var(--entry-gap);
-
-  padding: clamp(10px, 1vw, 18px);
-}
-
-/* =========================================================
-   PHOTO ITEM
-   ========================================================= */
-
-.masonry-grid__item {
-  position: relative;
-
-  min-width: 0;
-  min-height: 0;
-
-  overflow: hidden;
-
-  background: var(--color-sand);
-
-  opacity: 0;
-
-  transform: scale(1.045);
-
-  transition:
-    opacity 1000ms ease,
-    transform 1300ms cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-
-.entry-screen--loaded .masonry-grid__item {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.masonry-grid__item::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(to bottom,
-      rgba(35, 36, 32, 0.02),
-      rgba(35, 36, 32, 0.08));
-
-  opacity: 0.35;
-}
-
-.masonry-grid__item img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-
-  filter:
-    saturate(0.84) sepia(0.055) contrast(0.96) brightness(0.98);
-
-  transform: scale(1.01);
-
-  transition:
-    transform 1400ms cubic-bezier(0.2, 0.75, 0.25, 1),
-    filter 700ms ease;
-}
-
-.masonry-grid__item:hover img {
-  transform: scale(1.045);
-
-  filter:
-    saturate(0.96) sepia(0.025) contrast(1) brightness(1);
-}
-
-/* =========================================================
-   STAGGERED IMAGE ENTRANCE
-   ========================================================= */
-
-.photo--one {
-  transition-delay: 80ms;
-}
-
-.photo--two {
-  transition-delay: 160ms;
-}
-
-.photo--three {
-  transition-delay: 240ms;
-}
-
-.photo--four {
-  transition-delay: 320ms;
-}
-
-.photo--five {
-  transition-delay: 400ms;
-}
-
-.photo--six {
-  transition-delay: 480ms;
-}
-
-.photo--seven {
-  transition-delay: 560ms;
-}
-
-.photo--eight {
-  transition-delay: 640ms;
-}
-
-/* =========================================================
-   MASONRY DESKTOP PLACEMENT
-   ========================================================= */
-
-/*
-   LEFT SIDE
-*/
-
-.photo--one {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-}
-
-.photo--two {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.photo--three {
-  grid-column: 1;
-  grid-row: 4;
-}
-
-/*
-   CENTER
-*/
-
-.photo--four {
-  grid-column: 2;
-  grid-row: 1;
-
-  width: 72%;
-
-  justify-self: center;
-
-  min-height: 150px;
-}
-
-.photo--five {
-  grid-column: 2;
-  grid-row: 4;
-
-  width: 72%;
-
-  justify-self: center;
-}
-
-/*
-   RIGHT SIDE
-*/
-
-.photo--six {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-}
-
-.photo--seven {
-  grid-column: 3;
-  grid-row: 3;
-}
-
-.photo--eight {
-  grid-column: 3;
-  grid-row: 4;
-}
-
-/* =========================================================
-   CENTER SOFT WASH
-   ========================================================= */
-
-.entry-screen__overlay {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  width: min(40vw, 600px);
-  height: 62%;
-  /* was 100% */
-
-  transform: translate(-50%, -50%);
-  /* was translateX only */
-
-  z-index: 2;
-  pointer-events: none;
-
-  background: linear-gradient(to bottom,
-      rgba(253, 252, 243, 0) 0%,
-      rgba(253, 252, 243, 0.85) 15%,
-      rgba(253, 252, 243, 0.98) 32%,
-      rgba(253, 252, 243, 0.985) 50%,
-      rgba(253, 252, 243, 0.98) 68%,
-      rgba(253, 252, 243, 0.85) 85%,
-      rgba(253, 252, 243, 0) 100%);
-}
-
-/* =========================================================
-   CENTER CONTENT
-   ========================================================= */
-
-.entry-screen__content {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  z-index: 5;
-
-  width: min(90%, 500px);
-
-  transform: translate(-50%, -50%);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
-
-  padding: 40px 24px;
-}
-
-/* =========================================================
-   LOGO
-   ========================================================= */
-
-.entry-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: var(--color-olive);
-}
-
-.entry-logo__mark {
-  width: clamp(64px, 5vw, 96px);
-  height: auto;
-
-  display: block;
-
-  margin-bottom: clamp(20px, 2vw, 30px);
-
-  object-fit: contain;
-}
-
-.entry-logo__name {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  font-family: var(--font-display);
-
-  font-size: clamp(30px, 3vw, 52px);
-
-  font-weight: 300;
-
-  letter-spacing: 0.14em;
-
-  line-height: 0.95;
-
-  text-transform: uppercase;
-
-  white-space: nowrap;
-}
-
-.entry-logo__name span {
-  margin-top: 8px;
-}
-
-/* =========================================================
-   DIVIDER
-   ========================================================= */
-
-.entry-screen__divider {
-  width: 1px;
-  height: 40px;
-
-  margin:
-    clamp(22px, 2vw, 32px) 0 clamp(20px, 1.8vw, 28px);
-
-  background: var(--color-olive);
-
-  opacity: 0.58;
-}
-
-/* =========================================================
-   EYEBROW
-   ========================================================= */
-
-.entry-screen__eyebrow {
-  margin: 0;
-
-  color: var(--color-olive);
-
-  font-family: var(--font-body);
-
-  font-size: clamp(9px, 0.62vw, 12px);
-
-  font-weight: 400;
-
-  letter-spacing: 0.4em;
-
-  line-height: 1.8;
-
-  text-transform: uppercase;
-}
-
-/* =========================================================
-   ENTER BUTTON
-   ========================================================= */
-
-.enter-button {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: min(100%, 360px);
-
-  min-height: 68px;
-
-  margin-top: clamp(30px, 3vw, 46px);
-
-  padding: 0 26px;
-
-  gap: 30px;
-
-  border: 1px solid rgba(89, 99, 65, 0.72);
-
-  border-radius: 0;
-
-  background: rgba(253, 252, 243, 0.75);
-
-  color: var(--color-olive);
-
-  font-family: var(--font-body);
-
-  font-size: 11px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.28em;
-
-  text-transform: uppercase;
-
-  cursor: pointer;
-
-  backdrop-filter: blur(5px);
-
-  -webkit-backdrop-filter: blur(5px);
-
-  transition:
-    background 350ms ease,
-    color 350ms ease,
-    border-color 350ms ease,
-    transform 350ms ease;
-}
-
-.enter-button:hover {
-  background: var(--color-olive);
-
-  color: var(--color-cream);
-
-  border-color: var(--color-olive);
-
-  transform: translateY(-3px);
-}
-
-.enter-button:active {
-  transform: translateY(0);
-}
-
-.enter-button:focus-visible {
-  outline: 2px solid var(--color-olive);
-  outline-offset: 5px;
-}
-
-.enter-button__arrow {
-  font-family: Arial, sans-serif;
-
-  font-size: 19px;
-  font-weight: 300;
-
-  line-height: 1;
-
-  transition: transform 350ms ease;
-}
-
-.enter-button:hover .enter-button__arrow {
-  transform: translateX(7px);
-}
-
-/* =========================================================
-   SUBTEXT
-   ========================================================= */
-
-.entry-screen__subtext {
-  margin:
-    20px 0 0;
-
-  color: rgba(35, 36, 32, 0.58);
-
-  font-family: var(--font-body);
-
-  font-size: 8px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.3em;
-
-  line-height: 1.6;
-
-  text-transform: uppercase;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.entry-screen__footer {
-  position: absolute;
-
-  left: 0;
-  right: 0;
-  bottom: 22px;
-
-  z-index: 8;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding:
-    0 clamp(18px, 3vw, 48px);
-
-  color: rgba(35, 36, 32, 0.58);
-
-  font-family: var(--font-body);
-
-  font-size: 7px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.28em;
-
-  text-transform: uppercase;
-
-  pointer-events: none;
-}
-
-/* =========================================================
-   LARGE DESKTOP
-   ========================================================= */
-
-@media (min-width: 1500px) {
   .masonry-grid {
-    gap: 10px;
-    padding: 18px;
-  }
+    position: absolute;
+    inset: 0;
 
-  .entry-screen__content {
-    width: 520px;
-  }
+    z-index: 0;
 
-  .entry-logo__name {
-    font-size: 55px;
-  }
+    display: grid;
 
-  .entry-logo__mark {
-    width: 100px;
-  }
-}
-
-/* =========================================================
-   LAPTOP / TABLET
-   ========================================================= */
-
-@media (max-width: 1200px) {
-  .masonry-grid {
     grid-template-columns:
-      minmax(0, 0.95fr) minmax(250px, 0.9fr) minmax(0, 0.95fr);
-  }
-
-  .entry-screen__overlay {
-    width: min(46vw, 560px);
-  }
-
-  .entry-logo__name {
-    font-size: clamp(28px, 3.4vw, 46px);
-  }
-
-  .entry-screen__content {
-    width: min(90%, 460px);
-  }
-}
-
-/* =========================================================
-   TABLET PORTRAIT
-   ========================================================= */
-
-@media (max-width: 900px) {
-  .masonry-grid {
-    grid-template-columns:
-      1fr 1fr;
+      minmax(0, 1fr) minmax(260px, 0.72fr) minmax(0, 1fr);
 
     grid-template-rows:
-      1fr 1fr 1fr 1fr;
+      0.72fr 1fr 1fr 0.82fr;
+
+    gap: var(--entry-gap);
+
+    padding: clamp(10px, 1vw, 18px);
   }
 
+  /* =========================================================
+    PHOTO ITEM
+    ========================================================= */
+
+  .masonry-grid__item {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    background: var(--color-sand);
+
+    opacity: 0;
+
+    transform: scale(1.045);
+
+    transition:
+      opacity 1000ms ease,
+      transform 1300ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .entry-screen--loaded .masonry-grid__item {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .masonry-grid__item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+      linear-gradient(to bottom,
+        rgba(35, 36, 32, 0.02),
+        rgba(35, 36, 32, 0.08));
+
+    opacity: 0.35;
+  }
+
+  .masonry-grid__item img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    filter:
+      saturate(0.84) sepia(0.055) contrast(0.96) brightness(0.98);
+
+    transform: scale(1.01);
+
+    transition:
+      transform 1400ms cubic-bezier(0.2, 0.75, 0.25, 1),
+      filter 700ms ease;
+  }
+
+  .masonry-grid__item:hover img {
+    transform: scale(1.045);
+
+    filter:
+      saturate(0.96) sepia(0.025) contrast(1) brightness(1);
+  }
+
+  /* =========================================================
+    STAGGERED IMAGE ENTRANCE
+    ========================================================= */
+
+  .photo--one {
+    transition-delay: 80ms;
+  }
+
+  .photo--two {
+    transition-delay: 160ms;
+  }
+
+  .photo--three {
+    transition-delay: 240ms;
+  }
+
+  .photo--four {
+    transition-delay: 320ms;
+  }
+
+  .photo--five {
+    transition-delay: 400ms;
+  }
+
+  .photo--six {
+    transition-delay: 480ms;
+  }
+
+  .photo--seven {
+    transition-delay: 560ms;
+  }
+
+  .photo--eight {
+    transition-delay: 640ms;
+  }
+
+  /* =========================================================
+    MASONRY DESKTOP PLACEMENT
+    ========================================================= */
+
   /*
-     Reposition the images into a 2-column editorial
-     background while keeping the center content clear.
+    LEFT SIDE
   */
 
   .photo--one {
@@ -649,413 +243,819 @@
   }
 
   .photo--two {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 1;
+    grid-row: 3;
   }
 
   .photo--three {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .photo--four {
     grid-column: 1;
-    grid-row: 3;
-
-    width: 100%;
-  }
-
-  .photo--five {
-    grid-column: 2;
-    grid-row: 3;
-
-    width: 100%;
-  }
-
-  .photo--six {
-    grid-column: 1;
-    grid-row: 4;
-  }
-
-  .photo--seven {
-    grid-column: 2;
     grid-row: 4;
   }
 
   /*
-     Hide two images on smaller tablet screens.
-     They will return on larger layouts.
+    CENTER
   */
 
-  .photo--eight {
-    display: none;
-  }
-
-  .entry-screen__overlay {
-    width: 100%;
-
-    height: 58%;
-
-    top: 50%;
-
-    transform:
-      translateX(-50%) translateY(-50%);
-
-    background:
-      linear-gradient(to bottom,
-        rgba(253, 252, 243, 0) 0%,
-        rgba(253, 252, 243, 0.88) 18%,
-        rgba(253, 252, 243, 0.98) 35%,
-        rgba(253, 252, 243, 0.98) 65%,
-        rgba(253, 252, 243, 0.88) 82%,
-        rgba(253, 252, 243, 0) 100%);
-  }
-
-  .entry-screen__content {
-    width: min(90%, 440px);
-  }
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-  .entry-screen {
-    overflow: hidden;
-  }
-
-  .masonry-grid {
-    inset: 0;
-
-    grid-template-columns:
-      1fr 1fr;
-
-    grid-template-rows:
-      110px 100px 120px 110px 100px 90px;
-
-    gap: 4px;
-
-    padding: 5px;
-  }
-
-  /* -------------------------------------------------------
-     Mobile image arrangement
-     ------------------------------------------------------- */
-
-  .photo--one {
-    grid-column: 1 / span 2;
+  .photo--four {
+    grid-column: 2;
     grid-row: 1;
 
-    height: 100%;
-  }
+    width: 72%;
 
-  .photo--two {
-    grid-column: 1;
-    grid-row: 2;
-  }
+    justify-self: center;
 
-  .photo--three {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .photo--four {
-    grid-column: 1;
-    grid-row: 3 / span 2;
-
-    width: 100%;
+    min-height: 150px;
   }
 
   .photo--five {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
 
-    width: 100%;
+    width: 72%;
+
+    justify-self: center;
   }
 
+  /*
+    RIGHT SIDE
+  */
+
   .photo--six {
-    grid-column: 2;
-    grid-row: 4;
+    grid-column: 3;
+    grid-row: 1 / span 2;
   }
 
   .photo--seven {
-    grid-column: 1;
-    grid-row: 5;
+    grid-column: 3;
+    grid-row: 3;
   }
 
   .photo--eight {
-    display: block;
-
-    grid-column: 2;
-    grid-row: 5;
+    grid-column: 3;
+    grid-row: 4;
   }
 
-  /* -------------------------------------------------------
-     Center wash
-     ------------------------------------------------------- */
+  /* =========================================================
+    CENTER SOFT WASH
+    ========================================================= */
 
   .entry-screen__overlay {
-    top: 50%;
-    left: 0;
+    position: absolute;
 
-    width: 100%;
-    height: 58%;
-
-    transform: translateY(-50%);
-
-    background:
-      linear-gradient(to bottom,
-        rgba(253, 252, 243, 0) 0%,
-        rgba(253, 252, 243, 0.82) 14%,
-        rgba(253, 252, 243, 0.97) 30%,
-        rgba(253, 252, 243, 0.985) 50%,
-        rgba(253, 252, 243, 0.97) 70%,
-        rgba(253, 252, 243, 0.82) 86%,
-        rgba(253, 252, 243, 0) 100%);
-  }
-
-  /* -------------------------------------------------------
-     Content
-     ------------------------------------------------------- */
-
-  .entry-screen__content {
     top: 50%;
     left: 50%;
 
-    width: 100%;
+    width: min(40vw, 600px);
+    height: 62%;
+    /* was 100% */
 
-    padding:
-      28px 22px;
+    transform: translate(-50%, -50%);
+    /* was translateX only */
+
+    z-index: 2;
+    pointer-events: none;
+
+    background: linear-gradient(to bottom,
+        rgba(253, 252, 243, 0) 0%,
+        rgba(253, 252, 243, 0.85) 15%,
+        rgba(253, 252, 243, 0.98) 32%,
+        rgba(253, 252, 243, 0.985) 50%,
+        rgba(253, 252, 243, 0.98) 68%,
+        rgba(253, 252, 243, 0.85) 85%,
+        rgba(253, 252, 243, 0) 100%);
+  }
+
+  /* =========================================================
+    CENTER CONTENT
+    ========================================================= */
+
+  .entry-screen__content {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: 5;
+
+    width: min(90%, 500px);
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 24px;
+  }
+
+  /* =========================================================
+    LOGO
+    ========================================================= */
+
+  .entry-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: var(--color-olive);
   }
 
   .entry-logo__mark {
-    width: 62px;
+    width: clamp(64px, 5vw, 96px);
+    height: auto;
 
-    margin-bottom: 18px;
+    display: block;
+
+    margin-bottom: clamp(20px, 2vw, 30px);
+
+    object-fit: contain;
   }
 
   .entry-logo__name {
-    font-size: clamp(24px, 7vw, 34px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    letter-spacing: 0.12em;
+    font-family: var(--font-display);
 
-    line-height: 0.98;
+    font-size: clamp(30px, 3vw, 52px);
+
+    font-weight: 300;
+
+    letter-spacing: 0.14em;
+
+    line-height: 0.95;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
   }
 
   .entry-logo__name span {
-    margin-top: 6px;
+    margin-top: 8px;
   }
+
+  /* =========================================================
+    DIVIDER
+    ========================================================= */
 
   .entry-screen__divider {
-    height: 28px;
+    width: 1px;
+    height: 40px;
 
     margin:
-      18px 0 18px;
+      clamp(22px, 2vw, 32px) 0 clamp(20px, 1.8vw, 28px);
+
+    background: var(--color-olive);
+
+    opacity: 0.58;
   }
 
+  /* =========================================================
+    EYEBROW
+    ========================================================= */
+
   .entry-screen__eyebrow {
+    margin: 0;
+
+    color: var(--color-olive);
+
+    font-family: var(--font-body);
+
+    font-size: clamp(9px, 0.62vw, 12px);
+
+    font-weight: 400;
+
+    letter-spacing: 0.4em;
+
+    line-height: 1.8;
+
+    text-transform: uppercase;
+  }
+
+  /* =========================================================
+    ENTER BUTTON
+    ========================================================= */
+
+  .enter-button {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: min(100%, 360px);
+
+    min-height: 68px;
+
+    margin-top: clamp(30px, 3vw, 46px);
+
+    padding: 0 26px;
+
+    gap: 30px;
+
+    border: 1px solid rgba(89, 99, 65, 0.72);
+
+    border-radius: 0;
+
+    background: rgba(253, 252, 243, 0.75);
+
+    color: var(--color-olive);
+
+    font-family: var(--font-body);
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    letter-spacing: 0.28em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(5px);
+
+    -webkit-backdrop-filter: blur(5px);
+
+    transition:
+      background 350ms ease,
+      color 350ms ease,
+      border-color 350ms ease,
+      transform 350ms ease;
+  }
+
+  .enter-button:hover {
+    background: var(--color-olive);
+
+    color: var(--color-cream);
+
+    border-color: var(--color-olive);
+
+    transform: translateY(-3px);
+  }
+
+  .enter-button:active {
+    transform: translateY(0);
+  }
+
+  .enter-button:focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 5px;
+  }
+
+  .enter-button__arrow {
+    font-family: Arial, sans-serif;
+
+    font-size: 19px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    transition: transform 350ms ease;
+  }
+
+  .enter-button:hover .enter-button__arrow {
+    transform: translateX(7px);
+  }
+
+  /* =========================================================
+    SUBTEXT
+    ========================================================= */
+
+  .entry-screen__subtext {
+    margin:
+      20px 0 0;
+
+    color: rgba(35, 36, 32, 0.58);
+
+    font-family: var(--font-body);
+
     font-size: 8px;
+
+    font-weight: 400;
 
     letter-spacing: 0.3em;
 
-    line-height: 1.8;
+    line-height: 1.6;
+
+    text-transform: uppercase;
   }
 
-  .enter-button {
-    width: min(100%, 320px);
+  /* =========================================================
+    FOOTER
+    ========================================================= */
 
-    min-height: 60px;
+  .entry-screen__footer {
+    position: absolute;
 
-    margin-top: 26px;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+
+    z-index: 8;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     padding:
-      0 20px;
+      0 clamp(18px, 3vw, 48px);
 
-    gap: 22px;
+    color: rgba(35, 36, 32, 0.58);
 
-    font-size: 9px;
-
-    letter-spacing: 0.22em;
-  }
-
-  .enter-button__arrow {
-    font-size: 17px;
-  }
-
-  .entry-screen__subtext {
-    margin-top: 15px;
+    font-family: var(--font-body);
 
     font-size: 7px;
 
-    letter-spacing: 0.25em;
+    font-weight: 400;
+
+    letter-spacing: 0.28em;
+
+    text-transform: uppercase;
+
+    pointer-events: none;
   }
 
-  .entry-screen__footer {
-    bottom: 13px;
+  /* =========================================================
+    LARGE DESKTOP
+    ========================================================= */
 
-    padding:
-      0 14px;
+  @media (min-width: 1500px) {
+    .masonry-grid {
+      gap: 10px;
+      padding: 18px;
+    }
 
-    font-size: 6px;
+    .entry-screen__content {
+      width: 520px;
+    }
 
-    letter-spacing: 0.18em;
-  }
-}
+    .entry-logo__name {
+      font-size: 55px;
+    }
 
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-  .masonry-grid {
-    grid-template-rows:
-      95px 82px 105px 105px 92px 78px;
-
-    gap: 3px;
-
-    padding: 4px;
+    .entry-logo__mark {
+      width: 100px;
+    }
   }
 
-  .entry-screen__content {
-    top: 49%;
+  /* =========================================================
+    LAPTOP / TABLET
+    ========================================================= */
+
+  @media (max-width: 1200px) {
+    .masonry-grid {
+      grid-template-columns:
+        minmax(0, 0.95fr) minmax(250px, 0.9fr) minmax(0, 0.95fr);
+    }
+
+    .entry-screen__overlay {
+      width: min(46vw, 560px);
+    }
+
+    .entry-logo__name {
+      font-size: clamp(28px, 3.4vw, 46px);
+    }
+
+    .entry-screen__content {
+      width: min(90%, 460px);
+    }
   }
 
-  .entry-logo__mark {
-    width: 52px;
+  /* =========================================================
+    TABLET PORTRAIT
+    ========================================================= */
 
-    margin-bottom: 13px;
+  @media (max-width: 900px) {
+    .masonry-grid {
+      grid-template-columns:
+        1fr 1fr;
+
+      grid-template-rows:
+        1fr 1fr 1fr 1fr;
+    }
+
+    /*
+      Reposition the images into a 2-column editorial
+      background while keeping the center content clear.
+    */
+
+    .photo--one {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+
+    .photo--two {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .photo--three {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .photo--four {
+      grid-column: 1;
+      grid-row: 3;
+
+      width: 100%;
+    }
+
+    .photo--five {
+      grid-column: 2;
+      grid-row: 3;
+
+      width: 100%;
+    }
+
+    .photo--six {
+      grid-column: 1;
+      grid-row: 4;
+    }
+
+    .photo--seven {
+      grid-column: 2;
+      grid-row: 4;
+    }
+
+    /*
+      Hide two images on smaller tablet screens.
+      They will return on larger layouts.
+    */
+
+    .photo--eight {
+      display: none;
+    }
+
+    .entry-screen__overlay {
+      width: 100%;
+
+      height: 58%;
+
+      top: 50%;
+
+      transform:
+        translateX(-50%) translateY(-50%);
+
+      background:
+        linear-gradient(to bottom,
+          rgba(253, 252, 243, 0) 0%,
+          rgba(253, 252, 243, 0.88) 18%,
+          rgba(253, 252, 243, 0.98) 35%,
+          rgba(253, 252, 243, 0.98) 65%,
+          rgba(253, 252, 243, 0.88) 82%,
+          rgba(253, 252, 243, 0) 100%);
+    }
+
+    .entry-screen__content {
+      width: min(90%, 440px);
+    }
   }
 
-  .entry-logo__name {
-    font-size: 21px;
+  /* =========================================================
+    MOBILE
+    ========================================================= */
 
-    letter-spacing: 0.1em;
+  @media (max-width: 768px) {
+    .entry-screen {
+      overflow: hidden;
+    }
+
+    .masonry-grid {
+      inset: 0;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      grid-template-rows:
+        110px 100px 120px 110px 100px 90px;
+
+      gap: 4px;
+
+      padding: 5px;
+    }
+
+    /* -------------------------------------------------------
+      Mobile image arrangement
+      ------------------------------------------------------- */
+
+    .photo--one {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+
+      height: 100%;
+    }
+
+    .photo--two {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .photo--three {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .photo--four {
+      grid-column: 1;
+      grid-row: 3 / span 2;
+
+      width: 100%;
+    }
+
+    .photo--five {
+      grid-column: 2;
+      grid-row: 3;
+
+      width: 100%;
+    }
+
+    .photo--six {
+      grid-column: 2;
+      grid-row: 4;
+    }
+
+    .photo--seven {
+      grid-column: 1;
+      grid-row: 5;
+    }
+
+    .photo--eight {
+      display: block;
+
+      grid-column: 2;
+      grid-row: 5;
+    }
+
+    /* -------------------------------------------------------
+      Center wash
+      ------------------------------------------------------- */
+
+    .entry-screen__overlay {
+      top: 50%;
+      left: 0;
+
+      width: 100%;
+      height: 58%;
+
+      transform: translateY(-50%);
+
+      background:
+        linear-gradient(to bottom,
+          rgba(253, 252, 243, 0) 0%,
+          rgba(253, 252, 243, 0.82) 14%,
+          rgba(253, 252, 243, 0.97) 30%,
+          rgba(253, 252, 243, 0.985) 50%,
+          rgba(253, 252, 243, 0.97) 70%,
+          rgba(253, 252, 243, 0.82) 86%,
+          rgba(253, 252, 243, 0) 100%);
+    }
+
+    /* -------------------------------------------------------
+      Content
+      ------------------------------------------------------- */
+
+    .entry-screen__content {
+      top: 50%;
+      left: 50%;
+
+      width: 100%;
+
+      padding:
+        28px 22px;
+    }
+
+    .entry-logo__mark {
+      width: 62px;
+
+      margin-bottom: 18px;
+    }
+
+    .entry-logo__name {
+      font-size: clamp(24px, 7vw, 34px);
+
+      letter-spacing: 0.12em;
+
+      line-height: 0.98;
+    }
+
+    .entry-logo__name span {
+      margin-top: 6px;
+    }
+
+    .entry-screen__divider {
+      height: 28px;
+
+      margin:
+        18px 0 18px;
+    }
+
+    .entry-screen__eyebrow {
+      font-size: 8px;
+
+      letter-spacing: 0.3em;
+
+      line-height: 1.8;
+    }
+
+    .enter-button {
+      width: min(100%, 320px);
+
+      min-height: 60px;
+
+      margin-top: 26px;
+
+      padding:
+        0 20px;
+
+      gap: 22px;
+
+      font-size: 9px;
+
+      letter-spacing: 0.22em;
+    }
+
+    .enter-button__arrow {
+      font-size: 17px;
+    }
+
+    .entry-screen__subtext {
+      margin-top: 15px;
+
+      font-size: 7px;
+
+      letter-spacing: 0.25em;
+    }
+
+    .entry-screen__footer {
+      bottom: 13px;
+
+      padding:
+        0 14px;
+
+      font-size: 6px;
+
+      letter-spacing: 0.18em;
+    }
   }
 
-  .entry-screen__divider {
-    height: 22px;
+  /* =========================================================
+    SMALL MOBILE
+    ========================================================= */
 
-    margin:
-      14px 0 14px;
+  @media (max-width: 480px) {
+    .masonry-grid {
+      grid-template-rows:
+        95px 82px 105px 105px 92px 78px;
+
+      gap: 3px;
+
+      padding: 4px;
+    }
+
+    .entry-screen__content {
+      top: 49%;
+    }
+
+    .entry-logo__mark {
+      width: 52px;
+
+      margin-bottom: 13px;
+    }
+
+    .entry-logo__name {
+      font-size: 21px;
+
+      letter-spacing: 0.1em;
+    }
+
+    .entry-screen__divider {
+      height: 22px;
+
+      margin:
+        14px 0 14px;
+    }
+
+    .entry-screen__eyebrow {
+      font-size: 6.5px;
+
+      letter-spacing: 0.25em;
+    }
+
+    .enter-button {
+      min-height: 54px;
+
+      width: min(100%, 285px);
+
+      margin-top: 20px;
+
+      gap: 17px;
+
+      font-size: 8px;
+
+      letter-spacing: 0.19em;
+    }
+
+    .enter-button__arrow {
+      font-size: 15px;
+    }
+
+    .entry-screen__subtext {
+      margin-top: 12px;
+
+      font-size: 6px;
+
+      letter-spacing: 0.2em;
+    }
+
+    .entry-screen__footer {
+      display: none;
+    }
   }
 
-  .entry-screen__eyebrow {
-    font-size: 6.5px;
+  /* =========================================================
+    VERY SMALL DEVICES
+    ========================================================= */
 
-    letter-spacing: 0.25em;
+  @media (max-width: 360px) {
+    .masonry-grid {
+      grid-template-rows:
+        78px 70px 90px 90px 76px 65px;
+    }
+
+    .entry-screen__content {
+      padding:
+        20px 18px;
+    }
+
+    .entry-logo__mark {
+      width: 46px;
+
+      margin-bottom: 10px;
+    }
+
+    .entry-logo__name {
+      font-size: 18px;
+    }
+
+    .entry-screen__divider {
+      height: 18px;
+
+      margin:
+        11px 0;
+    }
+
+    .entry-screen__eyebrow {
+      font-size: 5.7px;
+    }
+
+    .enter-button {
+      width: 250px;
+
+      min-height: 49px;
+
+      margin-top: 17px;
+
+      font-size: 7px;
+    }
   }
 
-  .enter-button {
-    min-height: 54px;
+  /* =========================================================
+    LANDSCAPE MOBILE
+    ========================================================= */
 
-    width: min(100%, 285px);
+  @media (max-width: 900px) and (orientation: landscape) {
+    .masonry-grid {
+      grid-template-rows:
+        90px 80px 90px 80px;
+    }
 
-    margin-top: 20px;
+    .entry-screen__content {
+      transform:
+        translate(-50%, -50%) scale(0.82);
+    }
 
-    gap: 17px;
-
-    font-size: 8px;
-
-    letter-spacing: 0.19em;
+    .entry-screen__footer {
+      bottom: 8px;
+    }
   }
 
-  .enter-button__arrow {
-    font-size: 15px;
+  /* =========================================================
+    REDUCED MOTION
+    ========================================================= */
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .entry-screen,
+    .entry-screen--exiting,
+    .masonry-grid__item,
+    .masonry-grid__item img,
+    .enter-button,
+    .enter-button__arrow {
+      transition: none !important;
+    }
   }
-
-  .entry-screen__subtext {
-    margin-top: 12px;
-
-    font-size: 6px;
-
-    letter-spacing: 0.2em;
-  }
-
-  .entry-screen__footer {
-    display: none;
-  }
-}
-
-/* =========================================================
-   VERY SMALL DEVICES
-   ========================================================= */
-
-@media (max-width: 360px) {
-  .masonry-grid {
-    grid-template-rows:
-      78px 70px 90px 90px 76px 65px;
-  }
-
-  .entry-screen__content {
-    padding:
-      20px 18px;
-  }
-
-  .entry-logo__mark {
-    width: 46px;
-
-    margin-bottom: 10px;
-  }
-
-  .entry-logo__name {
-    font-size: 18px;
-  }
-
-  .entry-screen__divider {
-    height: 18px;
-
-    margin:
-      11px 0;
-  }
-
-  .entry-screen__eyebrow {
-    font-size: 5.7px;
-  }
-
-  .enter-button {
-    width: 250px;
-
-    min-height: 49px;
-
-    margin-top: 17px;
-
-    font-size: 7px;
-  }
-}
-
-/* =========================================================
-   LANDSCAPE MOBILE
-   ========================================================= */
-
-@media (max-width: 900px) and (orientation: landscape) {
-  .masonry-grid {
-    grid-template-rows:
-      90px 80px 90px 80px;
-  }
-
-  .entry-screen__content {
-    transform:
-      translate(-50%, -50%) scale(0.82);
-  }
-
-  .entry-screen__footer {
-    bottom: 8px;
-  }
-}
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-
-@media (prefers-reduced-motion: reduce) {
-  .entry-screen,
-  .entry-screen--exiting,
-  .masonry-grid__item,
-  .masonry-grid__item img,
-  .enter-button,
-  .enter-button__arrow {
-    transition: none !important;
-  }
-}

@@ -63,7 +63,7 @@ export default function Contact() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full  overflow-hidden bg-olive-800 py-24 md:py-32"
+      className="relative w-full  overflow-hidden bg-olive-800       py-24 md:py-32"
     >
       {/* ---- Ambient background glow, centered behind the logo ---- */}
       <motion.div

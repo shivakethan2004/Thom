@@ -9,7 +9,7 @@
 
 export const routes = {
   home: "/",
-  house: "/the-house",
+  house: "/",
   stories: "/stories",
   films: "/films",
   artist: "/the-artist",
@@ -146,3 +146,21 @@ export const contact = {
   instagramHandle: "@thehouseofmaya",
   location: "Hyderabad, India",
 };
+
+export const testimonials = [
+  {
+    name: "Anvitha & Thrinesh",
+    text: "I first came across Mayas Pixels on Instagram through a friend’s suggestion and chose them for my engagement. The photos were amazing, which led me to book them for all my wedding ceremonies as well. Sandeep and his team beautifully captured every precious moment in a fresh and intimate storytelling style.My family and I will cherish these memories for a lifetime. Thank you, Mayas Pixels, for the beautiful work – your passion truly reflects in the final output. Wishing the team all the best!",
+    url: "https://images-pw.pixieset.com/elementfield/Ww11ymb/AT-26-7fc146ed-2500.jpg",
+  },
+  {
+    name: "Divya & Narasimha",
+    text: "I couldn't be happier choosing Mayas pixels! From start to finish, they made the entire process seamless and enjoyable. They took the time to understand my vision and the style I wanted, which truly showed in the final photos. They were not only professional but also warm and easy to work with. Each one captures the emotion and beauty of the day perfectly. Every special moment, from the quiet glances to the big celebrations, was captured with such care & artistry ♥️", 
+    url:"https://images-pw.pixieset.com/elementfield/OWQQdjw/DN_Engagement-201-974421fb-2500.JPG",
+  },
+  {
+    name: "Teja & Harika",
+    text:"We are extremely happy with the work from Mayas Pixels. Sandeep and his team are talented photographers who beautifully captured the important moments and emotions throughout our wedding ceremonies. We especially loved the candid shots that truly reflect the joy of the day.Their professionalism and communication were excellent, and the team was always punctual. We are grateful to have chosen Mayas Pixels to capture our special moments and would highly recommend them for wedding photography.",
+    url:"https://images-pw.pixieset.com/elementfield/VM99vlm/TH-withlogo-8-5c5e938a-2500.jpg",
+  }
+]
