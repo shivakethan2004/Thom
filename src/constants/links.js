@@ -139,3 +139,10 @@ export const cta = {
   stories: "/stories",
   films: "/films",
 };
+export const contact = {
+  email: "hello@thehouseofmaya.com",
+  phone: "+91 98765 43210",
+  instagram: social.instagram,
+  instagramHandle: "@thehouseofmaya",
+  location: "Hyderabad, India",
+};
