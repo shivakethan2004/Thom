@@ -2,6 +2,7 @@ import Hero from "../components/HomePage/Hero";
 import Philosophy from "../components/HomePage/Philosophy";
 import ImageSlideshow from "../components/HomePage/ImageSlideshow";
 import StoriesAndFilms from "../components/HomePage/StoriesAndFilms";
+import Contact from "../components/HomePage/Contact";
 export default function Home() {
   return (
     <>
@@ -9,6 +10,7 @@ export default function Home() {
       <Philosophy />
       <ImageSlideshow />
       <StoriesAndFilms />
+      <Contact />
     </>
   );
 }

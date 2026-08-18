@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Play, X } from "lucide-react";
 import Button from "../ui/Button";
 import { stories, films, cta } from "../../constants/links";
+
 function Leaf({ className }) {
   return (
     <svg viewBox="0 0 24 60" fill="none" className={className}>
@@ -24,13 +25,6 @@ function Leaf({ className }) {
   );
 }
 
-/* ---------------------------------------------------------------------
- * FloralSprig — a small botanical accent, anchored at the base of the
- * story arch rather than encircling it. Same thin-line, single-stroke
- * language as Leaf, just a fuller cluster (stem + small leaves + a
- * couple of bud shapes) so it reads as an intentional flourish rather
- * than a stray branch.
- * ------------------------------------------------------------------- */
 function FloralSprig({ className, flip = false }) {
   return (
     <svg
@@ -39,18 +33,15 @@ function FloralSprig({ className, flip = false }) {
       className={className}
       style={flip ? { transform: "scaleX(-1)" } : undefined}
     >
-      {/* main stem, curving up from the base point */}
       <path
         d="M4 38C10 30 14 24 26 14"
         stroke="currentColor"
         strokeWidth="1"
         strokeLinecap="round"
       />
-      {/* small leaf pairs along the stem */}
       <path d="M8 34q5-2 6 3" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" />
       <path d="M13 28q5-1 5 4" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" />
       <path d="M18 22q5-1 4 4" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" />
-      {/* small bud/flower shapes at the tip */}
       <circle cx="27" cy="12" r="1.6" stroke="currentColor" strokeWidth="0.9" />
       <circle cx="32" cy="9" r="1.1" stroke="currentColor" strokeWidth="0.8" />
       <path d="M26 13q-6 2-9 8" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" />
@@ -59,19 +50,84 @@ function FloralSprig({ className, flip = false }) {
 }
 
 /* ---------------------------------------------------------------------
+ * ParallaxLeaf — a decorative background leaf image.
+ *
+ * IMPORTANT: scroll-linked motion (style.y from useTransform) and a
+ * looping animate.y/rotate must live on TWO SEPARATE elements. Putting
+ * both a `style` motion value and an `animate` prop on the same
+ * property of the same element makes Framer Motion fight itself every
+ * frame — that's what caused the glitch/jitter on scroll. So: the
+ * outer element handles scroll parallax only, and the inner element
+ * handles the float/rotate loop only.
+ * ------------------------------------------------------------------- */
+function ParallaxLeaf({
+  src,
+  className,
+  scrollRange = [0, -60],
+  floatRange = [0, 6, 0],
+  rotateRange = [0, 4, 0],
+  duration = 8,
+  progress,
+}) {
+  const y = useTransform(progress, [0, 1], scrollRange);
+
+  return (
+    <motion.div style={{ y }} className={`pointer-events-none select-none ${className}`}>
+      <motion.img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        animate={{
+          y: floatRange,
+          rotate: rotateRange,
+        }}
+        transition={{
+          duration,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+        className="h-full w-full"
+      />
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------------
  * FilmCard
  * ------------------------------------------------------------------- */
 function FilmCard({ film }) {
+  const cardRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const thumbnailUrl = `https://vumbnail.com/${film.vimeoId}.jpg`;
-
+  useEffect(() => {
+    if (playing && cardRef.current) {
+      // Wait a tick so the layout/expand animation has started before we scroll,
+      // otherwise we scroll to the pre-expansion position.
+      const id = requestAnimationFrame(() => {
+        cardRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      });
+      return () => cancelAnimationFrame(id);
+    }
+  }, [playing]);
   return (
     <motion.div
+      ref={cardRef}
       layout
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative overflow-hidden rounded-xl bg-olive-800 ${
-        playing ? "md:col-span-2 lg:col-span-3" : ""
-      }`}
+      onLayoutAnimationComplete={() => {
+        if (playing && cardRef.current) {
+          cardRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }}
+      className={`relative overflow-hidden rounded-xl bg-olive-800 ${playing ? "md:col-span-2 lg:col-span-3" : ""
+        }`}
     >
       {playing && (
         <button
@@ -141,10 +197,48 @@ function FilmCard({ film }) {
 }
 
 export default function StoriesAndFilms() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
-    <section className="w-full bg-olive-800 py-16 md:py-24">
-      <div className="max-w-content mx-auto px-4 md:px-8">
-        <div className="rounded-2xl bg-cream px-6 py-14 md:px-14 md:py-16">
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden bg-olive-800 py-20 md:py-28"
+    >
+      {/* ---- Background leaves — decorative, behind all content ---- */}
+      <ParallaxLeaf
+        src="/images/leaf1.png"
+        progress={scrollYProgress}
+        scrollRange={[0, -90]}
+        floatRange={[0, -8, 0]}
+        rotateRange={[-4, 4, -4]}
+        duration={9}
+        className="absolute -left-8 top-4 z-0 w-32 opacity-60 md:w-40 md:opacity-50 lg:-left-4 lg:top-10 lg:w-52"
+      />
+      <ParallaxLeaf
+        src="/images/curvedleaf.png"
+        progress={scrollYProgress}
+        scrollRange={[0, 70]}
+        floatRange={[0, 10, 0]}
+        rotateRange={[3, -3, 3]}
+        duration={11}
+        className="absolute -right-6 top-1/2 z-0 w-28 -translate-y-1/2 opacity-50 md:w-36 md:opacity-40 lg:right-2 lg:w-48"
+      />
+      <ParallaxLeaf
+        src="/images/leaf2.png"
+        progress={scrollYProgress}
+        scrollRange={[0, -70]}
+        floatRange={[0, 8, 0]}
+        rotateRange={[-3, 3, -3]}
+        duration={10}
+        className="absolute -bottom-4 left-1/2 z-0 w-36 -translate-x-1/2 opacity-50 md:w-44 md:opacity-40 lg:bottom-0 lg:left-10 lg:translate-x-0 lg:w-56"
+      />
+
+      <div className="relative z-10 max-w-content mx-auto px-4 md:px-8">
+        <div className="relative rounded-2xl bg-cream px-6 py-14 md:px-14 md:py-16">
 
           {/* ---- Stories header ---- */}
           <div className="relative flex flex-col items-center text-center">
@@ -163,14 +257,14 @@ export default function StoriesAndFilms() {
           </div>
 
           {/* ---- Stories grid — arch photo + base floral accent ---- */}
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
             {stories.map((story) => (
               <Link
                 key={story.title}
                 href={story.href}
                 className="group flex flex-col items-center text-center"
               >
-                <div className="relative h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52">
+                <div className="relative h-44 w-44 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-72 lg:w-72">
                   <div className="h-full w-full overflow-hidden rounded-t-full">
                     <img
                       src={story.image}
@@ -181,12 +275,10 @@ export default function StoriesAndFilms() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  {/* Floral sprigs anchored at the base, tucked slightly
-                      behind the arch edge on each side */}
-                  <FloralSprig className="pointer-events-none absolute -bottom-2 -left-3 h-10 w-14 text-olive/50" />
+                  <FloralSprig className="pointer-events-none absolute -bottom-2 -left-3 h-10 w-14 text-olive/50 md:h-12 md:w-16" />
                   <FloralSprig
                     flip
-                    className="pointer-events-none absolute -bottom-2 -right-3 h-10 w-14 text-olive/50"
+                    className="pointer-events-none absolute -bottom-2 -right-3 h-10 w-14 text-olive/50 md:h-12 md:w-16"
                   />
                 </div>
                 <span className="mt-5 font-body text-[0.65rem] tracking-widest2 text-olive/50">
@@ -208,7 +300,6 @@ export default function StoriesAndFilms() {
             </Button>
           </div>
 
-          {/* ---- Divider ---- */}
           <div className="my-14 border-t border-olive/15" />
 
           {/* ---- Films header ---- */}
@@ -238,17 +329,7 @@ export default function StoriesAndFilms() {
         </div>
 
         {/* ---- CTA below panel ---- */}
-        <div className="mt-14 flex flex-col items-center text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-cream/30">
-            <span className="font-display text-sm text-cream">HM</span>
-          </div>
-          <p className="mt-4 font-body text-[0.65rem] tracking-widest2 text-cream/70">
-            START YOUR JOURNEY
-          </p>
-          <h3 className="mt-3 font-display text-2xl font-light text-cream md:text-3xl">
-            Let's create something beautiful
-          </h3>
-        </div>
+
       </div>
     </section>
   );
