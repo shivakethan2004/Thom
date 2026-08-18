@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "./fonts/fonts.css";
+
+/* ───────────────────────────────────────────────────────────────────────
+   THEME (Tailwind v4)
+   In v4, theme tokens live in CSS instead of tailwind.config.js.
+   This generates the same utilities as the v3 config: bg-olive, text-sand,
+   font-display, font-body, tracking-widest2, max-w-content, etc.
+   Delete tailwind.config.js if you're using this file — v4 ignores it
+   unless you explicitly load it with @config.
+   ─────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-olive-50: #f3f4ef;
+  --color-olive-100: #e4e7db;
+  --color-olive-200: #c9d0b8;
+  --color-olive-300: #a9b48e;
+  --color-olive-400: #83936a;
+  --color-olive-500: #596341;
+  --color-olive-600: #4a5237;
+  --color-olive-700: #3b422c;
+  --color-olive-800: #2c3121;
+  --color-olive-900: #1d2116;
+  --color-olive: #596341;
+
+  --color-cream: #fdfcf3;
+  --color-sand: #e0ceb6;
+  --color-grey: #a8a8a2;
+
+  --font-display: "Gilmer", serif;
+  --font-body: "NCL Gasdrifo", sans-serif;
+
+  --tracking-widest2: 0.28em;
+
+  --max-width-content: 1440px;
+}
+
+html {
+  font-family: "NCL Gasdrifo", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Gilmer", serif;
+}
+html {
+  scroll-behavior: smooth;
+}

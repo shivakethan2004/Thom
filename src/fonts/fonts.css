@@ -1,0 +1,78 @@
+/* ───────────────────────────────────────────────────────────────────────
+   FONT DECLARATIONS
+   Files live in: /public/fonts/
+   Copy your .otf files into public/fonts/ so these paths resolve.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Gilmer — display/headline face */
+@font-face {
+  font-family: "Gilmer";
+  src: url("/fonts/Gilmer Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilmer";
+  src: url("/fonts/Gilmer Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilmer";
+  src: url("/fonts/Gilmer Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilmer";
+  src: url("/fonts/Gilmer Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilmer";
+  src: url("/fonts/Gilmer Heavy.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Optional decorative variant — only if you actually use it somewhere */
+@font-face {
+  font-family: "Gilmer Outline";
+  src: url("/fonts/Gilmer Outline.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NCL Gasdrifo — body/utility face */
+@font-face {
+  font-family: "NCL Gasdrifo";
+  src: url("/fonts/NCLGasdrifo-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+   BASE WIRING
+   Tailwind's `font-display` / `font-body` utilities (see tailwind.config.js)
+   already point at these families. This just sets sane page defaults so
+   you don't have to add font-body to every single element.
+   ─────────────────────────────────────────────────────────────────────── */
+html {
+  font-family: "NCL Gasdrifo", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Gilmer", serif;
+}

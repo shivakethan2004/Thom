@@ -1,0 +1,91 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* keeps the clip-path exit from ever showing an edge */
+}
+
+.loader__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/loader-bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05); /* headroom during the exit wipe */
+}
+
+.loader__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 22, 18, 0.55) 0%,
+    rgba(30, 22, 18, 0.72) 55%,
+    rgba(30, 22, 18, 0.6) 100%
+  );
+}
+
+.loader__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.loader__mark {
+  width: 84px;
+  height: auto;
+  filter: brightness(0) invert(1); /* the mark is black-on-transparent; this makes it read white over the scrim */
+}
+
+.loader__wordmark {
+  margin: 0;
+  font-family: var(--font-display, "Gilmer", sans-serif);
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #f6efe4;
+}
+
+.loader__bar {
+  width: 200px;
+  height: 1px;
+  margin-top: 6px;
+  background: rgba(246, 239, 228, 0.25);
+  overflow: hidden;
+}
+
+.loader__bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #f6efe4;
+}
+
+.loader__pct {
+  font-family: var(--font-body, "NCL Gasdrifo", sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(246, 239, 228, 0.7);
+}
+
+@media (max-width: 480px) {
+  .loader__mark { width: 68px; }
+  .loader__wordmark { font-size: 12px; letter-spacing: 0.24em; }
+  .loader__bar { width: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__mark,
+  .loader__wordmark {
+    transition: none !important;
+    animation: none !important;
+  }
+}
