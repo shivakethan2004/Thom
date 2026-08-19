@@ -264,8 +264,8 @@ export default function StoriesAndFilms() {
                 href={story.href}
                 className="group flex flex-col items-center text-center"
               >
-                <div className="relative h-44 w-44 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-72 lg:w-72">
-                  <div className="h-full w-full overflow-hidden rounded-t-full">
+                <div className="relative h-74 w-54 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-102 lg:w-72">
+                  <div className="h-full w-full overflow-hidden rounded-tl-full rounded-tr-full ">
                     <img
                       src={story.image}
                       alt={story.title}

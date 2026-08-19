@@ -39,7 +39,7 @@ export default function ArtistSection() {
           />
 
           {/* photo */}
-          <div className="relative shadow-[0_35px_60px_-20px_rgba(0,0,0,0.45)]">
+          <div className="relative shadow-[0_35px_60px_-20px_rgba(0,0,0,0.45)] rouded-full">
             <img
               src={artist.image}
               alt={artist.name}

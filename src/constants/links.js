@@ -40,7 +40,10 @@ export const social = {
 
 // Swap this for your real hosted asset once it's in /public/images.
 export const media = {
-  heroImage: "https://images-pw.pixieset.com/elementfield/7A1WrA/AT-9-8027cb02-1000.jpg",
+  // heroImage: "https://images-pw.pixieset.com/elementfield/3xAGnMA/SS_Sneakpeek-3-31441c26-1500.jpg",
+  // heroImage: "https://images-pw.pixieset.com/elementfield/3xAGnMA/SS_Sneakpeek-334-76eb11e2-1500.jpg",
+  heroImage: "https://images-pw.pixieset.com/elementfield/3xAGnMA/SS_Sneakpeek-43-20242a90-1500.jpg",
+  // heroImage: "https://images-pw.pixieset.com/elementfield/3xAGnMA/SS_Sneakpeek-23-4ec530b1-1500.jpg",
 };
 // constants/links.js — add
 export const slideshowImages = [
@@ -164,3 +167,10 @@ export const testimonials = [
     url:"https://images-pw.pixieset.com/elementfield/VM99vlm/TH-withlogo-8-5c5e938a-2500.jpg",
   }
 ]
+
+export const artist = {
+  name: "Sandeep",
+  bio: "Sandeep is a passionate photographer and storyteller, dedicated to capturing the essence of every moment. With a keen eye for detail and a love for creativity, he brings stories to life through his lens.",
+  image: "https://images-pw.pixieset.com/elementfield/bOGl9zb/Sandeep-998b8475-2500.jpg",
+  signature: "/images/signature.png",
+}
