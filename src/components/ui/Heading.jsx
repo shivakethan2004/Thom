@@ -3,8 +3,8 @@ import clsx from "clsx";
 /**
  * Heading
  * -----------------------------------------------------------------------
- * Wraps h1–h4 with the display font (Gilmer) and a shared size scale so
- * every headline in the app stays consistent. Pass `as` to control which
+ * Wraps h1–h4 with the accent font (Bodoni Moda) and a shared size scale
+ * so every headline in the app stays consistent. Pass `as` to control which
  * tag renders (semantics) independent of `size` (visual weight).
  *
  * <Heading as="h1" size="xl">Every Love Story</Heading>
@@ -30,7 +30,7 @@ export default function Heading({
   return (
     <Tag
       className={clsx(
-        "font-display leading-[1.1] tracking-tight text-olive",
+        "font-accent leading-[1.1] tracking-tight text-olive",
         SIZES[size],
         weight,
         className

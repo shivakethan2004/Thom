@@ -248,7 +248,7 @@ export default function StoriesAndFilms() {
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
               STORIES
             </span>
-            <h2 className="mt-3 font-display text-3xl font-light text-olive md:text-4xl">
+            <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
               Our Latest Stories
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">
@@ -307,7 +307,7 @@ export default function StoriesAndFilms() {
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
               FILMS
             </span>
-            <h2 className="mt-3 font-display text-3xl font-light text-olive md:text-4xl">
+            <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
               Our Films
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">

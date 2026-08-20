@@ -36,7 +36,9 @@ export default {
         // Display / headline face
         display: ["Gilmer", "serif"],
         // Body / utility face
-        body: ["NCL Gasdrifo", "sans-serif"],
+        body: ["Cormorant Garamond", "serif"],
+        // Accent / editorial headline face (used sparingly on hero + section titles)
+        accent: ["Bodoni Moda", "serif"],
       },
       letterSpacing: {
         widest2: "0.28em",

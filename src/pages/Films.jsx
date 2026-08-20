@@ -178,7 +178,7 @@ export default function Films() {
           <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
 
           <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">FILMS</span>
-          <h1 className="mt-4 font-display text-4xl font-light tracking-tight md:text-6xl">
+          <h1 className="mt-4 font-accent text-4xl font-light tracking-tight md:text-6xl">
             Our Films
           </h1>
           <p className="mt-4 max-w-md font-body text-sm text-olive/70 md:text-base">

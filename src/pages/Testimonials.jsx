@@ -67,7 +67,7 @@ export default function Testimonials() {
                   {pad(index + 1)} / {pad(total)}
                 </p>
 
-                <h2 className="mt-5 font-display text-3xl font-light leading-[1.15] text-olive md:text-4xl lg:text-5xl">
+                <h2 className="mt-5 font-accent text-3xl font-light leading-[1.15] text-olive md:text-4xl lg:text-5xl">
                   {current.name}
                 </h2>
 

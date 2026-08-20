@@ -124,7 +124,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal index={2}>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl font-light text-cream md:text-5xl">
+          <h2 className="mt-4 max-w-2xl font-accent text-3xl font-light text-cream md:text-5xl">
             Let's create something beautiful
           </h2>
         </Reveal>
