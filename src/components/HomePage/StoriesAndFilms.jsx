@@ -258,7 +258,7 @@ export default function StoriesAndFilms() {
 
           {/* ---- Stories grid — arch photo + base floral accent ---- */}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
-            {stories.map((story) => (
+            {stories.slice(0, 4).map((story) => (
               <Link
                 key={story.title}
                 href={story.href}

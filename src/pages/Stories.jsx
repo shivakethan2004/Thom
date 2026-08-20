@@ -1,123 +1,106 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import Button from "../components/ui/Button";
-import { stories, routes } from "../constants/links";
+import { motion } from "framer-motion";
+import { stories } from "../constants/links";
 
-/* -----------------------------------------------------------------------
- * StoryRow
- * -----------------------------------------------------------------------
- * A large photo (category / title / date overlaid at the bottom) beside
- * a light text panel with a short description and a "View Story" link.
- *
- * NOTE: individual story detail pages (/stories/:id) don't exist yet, so
- * this renders as a static row rather than a Link — swap the outer <div>
- * for a <Link to={story.href}> once those routes are built.
- * ---------------------------------------------------------------------- */
-function StoryRow({ story }) {
+/* ---------------------------------------------------------------------
+ * Leaf — small decorative flourish flanking the page kicker, matching
+ * the mark already used in HomePage/StoriesAndFilms.jsx.
+ * ------------------------------------------------------------------- */
+function Leaf({ className }) {
   return (
-    <div className="group grid grid-cols-1 gap-4 md:grid-cols-5 md:gap-6 lg:gap-8">
-      {/* ---- Photo ---- */}
-      <div className="relative overflow-hidden rounded-sm md:col-span-3">
-        <div className="aspect-[4/3] w-full sm:aspect-[16/10]">
-          <img
-            src={story.image}
-            alt={story.title}
-            style={{ objectPosition: story.objectPosition }}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+    <svg viewBox="0 0 24 60" fill="none" className={className}>
+      <path d="M12 2C7 10 4 18 4 30s3 20 8 28" stroke="currentColor" strokeWidth="1" />
+      {[10, 20, 30, 40, 50].map((y, i) => (
+        <path key={i} d={`M${5 + (i % 2)} ${y}q7-3 9 4`} stroke="currentColor" strokeWidth="1" />
+      ))}
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------
+ * StoryRow — photo on one side, title/date on the other. No description
+ * copy, matching the Films list layout for consistency.
+ * ------------------------------------------------------------------- */
+function StoryRow({ story, index }) {
+  const reversed = index % 2 === 1;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: (index % 4) * 0.06 }}
+      className="border-b border-olive/10 py-8 first:pt-0 last:border-b-0 md:py-10"
+    >
+      <Link
+        to={story.href}
+        className={`group flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${
+          reversed ? "md:flex-row-reverse" : ""
+        }`}
+      >
+        <div className="relative w-full overflow-hidden rounded-xl md:w-[45%]">
+          <div className="aspect-[4/3] w-full">
+            <img
+              src={story.image}
+              alt={story.title}
+              style={{ objectPosition: story.objectPosition }}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-olive-900/70 via-olive-900/10 to-transparent" />
-        <div className="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-7">
-          <p className="font-body text-[10px] tracking-widest2 text-cream/80">
-            {story.category}
-          </p>
-          <h3 className="mt-2 font-display text-2xl font-light text-cream sm:text-3xl">
+
+        <div className={`flex flex-1 flex-col items-start ${reversed ? "md:items-end md:text-right" : ""}`}>
+          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
+            {story.date}
+          </span>
+          <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
             {story.title}
           </h3>
-          <p className="mt-1 font-body text-[11px] tracking-wide text-cream/70">
-            {story.date}
-          </p>
-        </div>
-      </div>
-
-      {/* ---- Info panel ---- */}
-      <div className="relative flex items-center md:col-span-2">
-        <div className="relative w-full rounded-sm bg-olive-50/70 px-7 py-8 md:px-9 md:py-10">
-          <img
-            src="/images/floral2.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-4 -top-6 w-16 rotate-12 opacity-40 md:w-20"
-          />
-
-          <p className="max-w-sm font-body text-sm leading-relaxed text-olive/70">
-            {story.description}
-          </p>
-
-          <span className="mt-6 inline-flex items-center gap-2 font-body text-xs tracking-widest2 text-olive/80 transition-colors group-hover:text-olive">
-            VIEW STORY <span aria-hidden="true">→</span>
+          <span className="mt-4 font-body text-xs tracking-widest2 text-olive/70 transition-colors group-hover:text-olive">
+            READ STORY →
           </span>
         </div>
-      </div>
-    </div>
+      </Link>
+    </motion.div>
   );
 }
 
 export default function Stories() {
   return (
-    <section className="relative overflow-hidden bg-cream px-6 py-20 text-olive md:px-10 lg:py-28">
-      {/* ---- Decorative floral, top right ---- */}
+    <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
+      {/* ---- Decorative corner floral ---- */}
       <img
-        src="/images/floral2.png"
+        src="/images/3rdfloral.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-0 w-40 opacity-70 md:w-56 lg:w-64"
+        className="pointer-events-none absolute -left-10 top-0 hidden w-56 -scale-x-100 opacity-40 md:block lg:w-72"
       />
 
-      <div className="relative mx-auto max-w-content">
-        {/* ---- Back link ---- */}
-        <Link
-          to={routes.home}
-          className="inline-flex items-center gap-2 font-body text-xs tracking-widest2 text-olive/60 transition-colors hover:text-olive"
-        >
-          <ArrowLeft size={14} /> BACK TO HOME
-        </Link>
+      <div className="relative z-10 mx-auto max-w-content">
+        {/* ---- Back to home ---- */}
+       
 
         {/* ---- Header ---- */}
-        <div className="mt-10 text-center">
-          <span className="font-body text-[11px] tracking-widest2 text-olive/60">
-            STORIES
-          </span>
-          <h1 className="mt-4 font-display text-5xl font-light tracking-tight md:text-6xl lg:text-7xl">
+        <div className="relative mx-auto mt-10 flex max-w-2xl flex-col items-center text-center">
+          <Leaf className="absolute left-0 top-2 hidden h-16 w-10 text-olive/30 md:block" />
+          <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
+
+          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">STORIES</span>
+          <h1 className="mt-4 font-display text-4xl font-light tracking-tight md:text-6xl">
             Our Stories
           </h1>
-          <p className="mx-auto mt-5 max-w-md font-body text-sm leading-relaxed text-olive/70 md:text-base">
-            Real moments. Honest emotions. Timeless memories.
+          <p className="mt-4 max-w-md font-body text-sm text-olive/70 md:text-base">
+            Real moments, honest emotions, timeless memories.
           </p>
         </div>
 
-        {/* ---- Story rows ---- */}
-        <div className="mt-16 flex flex-col gap-10 md:mt-20 md:gap-12">
-          {stories.map((story) => (
-            <StoryRow key={story.title} story={story} />
+        {/* ---- Story list ---- */}
+        <div className="mx-auto mt-14 max-w-3xl md:mt-20">
+          {stories.map((story, index) => (
+            <StoryRow key={story.title} story={story} index={index} />
           ))}
-        </div>
-
-        {/* ---- Footer CTA ---- */}
-        <div className="mt-20 flex flex-col items-center gap-6 text-center md:mt-24">
-          <div className="h-px w-16 bg-sand" />
-          <p className="font-body text-sm text-olive/70">
-            More stories. More memories.
-          </p>
-          <Button
-            href={routes.contact}
-            variant="solid"
-            className="bg-olive text-cream hover:bg-olive-700"
-          >
-            Load More Stories
-          </Button>
         </div>
       </div>
     </section>

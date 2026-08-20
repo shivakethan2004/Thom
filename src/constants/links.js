@@ -83,64 +83,32 @@ export const slideshowImages = [
 
 export const stories = [
   {
-    title: "Divya + Narasimha",
-    category: "WEDDING STORY",
-    date: "16 FEB 2025",
-    image: "https://images-pw.pixieset.com/elementfield/K5eEm0k/Cover-3-9c9604ed-1500.jpg",
-    objectPosition: "50% 30%",
-    description:
-      "A tapestry of tradition and tenderness, woven through every ritual of their two-day celebration. Joy carried the day, right through to the last dance.",
+    title: "Deepshika + Chandrakiran",
+    date: "MAY 18, 2024",
+    image: "https://images-pw.pixieset.com/elementfield/DGXQGYo/DN_Post-19-251e99db-1500.jpg",
+    objectPosition: "56% 35%",
     href: "/stories/1",
   },
   {
-    title: "Kriti + Om",
-    category: "WEDDING STORY",
-    date: "26 DEC 2024",
-    image: "https://images-pw.pixieset.com/elementfield/DGmMYxm/Cover-203-cd3b0a44-1500.jpg",
-    objectPosition: "50% 30%",
-    description:
-      "Winter light, warm families, and a couple who couldn't stop smiling. Every frame of this celebration felt like a page from a beautifully written story.",
+    title: "Ujjvala + Amit",
+    date: "MAY 20, 2024",
+    image: "https://images-pw.pixieset.com/elementfield/EjW6be6/DC_Sneakpeek-205-af4cdd95-1500.jpg",
+    objectPosition: "52% 34%",
     href: "/stories/2",
   },
   {
-    title: "Beaula Dhuni + Sai Krishna",
-    category: "WEDDING STORY",
-    date: "26 OCT 2024",
-    image: "https://images-pw.pixieset.com/elementfield/7EYXWGA/Cover-3-66ed2496-1500.jpg",
-    objectPosition: "50% 28%",
-    description:
-      "A vibrant celebration full of colour, custom and quiet in-between moments. Their families' warmth was impossible to miss in every single frame.",
+    title: "Vamsi + Vaishnavi",
+    date: "APR 24, 2024",
+    image: "https://images-pw.pixieset.com/elementfield/ZR6JZx8/UA_Sneakpeek-57-3a2b0f0e-1500.jpg",
+    objectPosition: "44% 32%",
     href: "/stories/3",
   },
   {
-    title: "Ujjvala + Amit",
-    category: "WEDDING STORY",
-    date: "14 FEB 2024",
-    image: "https://images-pw.pixieset.com/elementfield/167380704/Cover-3-c60fe5c8-1500.jpg",
-    objectPosition: "50% 30%",
-    description:
-      "A Valentine's wedding wrapped in soft light and heartfelt rituals. From the first look to the final farewell, their love led the way.",
+    title: "Divya + Narasimha",
+    date: "APR 19, 2024",
+    image: "https://images-pw.pixieset.com/elementfield/3KY9oQb/VV_Sneakpeek-14-fe52fa47-1500.jpg",
+    objectPosition: "62% 52%",
     href: "/stories/4",
-  },
-  {
-    title: "Vamsi + Vaishnavi",
-    category: "WEDDING STORY",
-    date: "20 DEC 2023",
-    image: "https://images-pw.pixieset.com/elementfield/985639383/Cover-1-2ad2f1e9-1500.jpg",
-    objectPosition: "50% 30%",
-    description:
-      "A golden-hour wedding full of laughter and unscripted moments. Their connection is pure, and their story is only just beginning.",
-    href: "/stories/5",
-  },
-  {
-    title: "Deepshika + Chandrakiran",
-    category: "WEDDING STORY",
-    date: "03 SEP 2023",
-    image: "https://images-pw.pixieset.com/elementfield/380505433/Cover-1-f1a92b4d.jpg",
-    objectPosition: "50% 28%",
-    description:
-      "A timeless celebration drenched in tradition and beautiful chaos. Every ritual, every glance, told a story worth remembering forever.",
-    href: "/stories/6",
   },
 ];
 
@@ -151,9 +119,6 @@ export const films = [
     vimeoId: "883291742",
     vimeoHash: "4a51d2187f",
     href: "/films/1",
-    duration: "04:12",
-    description:
-      "A heartfelt celebration of two souls and their families coming together. Every moment captured with love, every frame woven with emotion.",
   },
   {
     title: "Aarav & Meera",
@@ -161,9 +126,6 @@ export const films = [
     vimeoId: "849752204",
     vimeoHash: "572eee96a2",
     href: "/films/2",
-    duration: "03:45",
-    description:
-      "Rolling hills, gentle winds and unfiltered laughter. Their connection is pure, their story is just beginning.",
   },
   {
     title: "Kabir & Ananya",
@@ -171,10 +133,8 @@ export const films = [
     vimeoId: "1163900692",
     vimeoHash: "ab744e7720",
     href: "/films/3",
-    duration: "05:08",
-    description:
-      "A timeless wedding drenched in traditions, emotions and beautiful chaos that made it unforgettable.",
   },
+
 ];
 
 export const cta = {
@@ -183,8 +143,9 @@ export const cta = {
   films: "/films",
 };
 export const contact = {
-  email: "hello@thehouseofmaya.com",
-  phone: "+91 98765 43210",
+  email: "mayaspixels@gmail.com",
+  phone: "+91 7207575063",
+  phoneDisplay: "Sandeep : +91 7207575063",
   instagram: social.instagram,
   instagramHandle: "@thehouseofmaya",
   location: "Hyderabad, India",

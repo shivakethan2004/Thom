@@ -10,7 +10,7 @@ export const artist = {
 
 export default function ArtistSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F4F1EA] px-6 py-20 md:px-16 lg:py-28">
+    <section className="relative w-full  overflow-hidden bg-cream px-6 py-20 md:px-16 lg:py-28">
       {/* faint decorative branch, background right */}
       <img
         src="/images/3rdfloral.png"
@@ -39,21 +39,21 @@ export default function ArtistSection() {
           />
 
           {/* photo */}
-          <div className="relative shadow-[0_35px_60px_-20px_rgba(0,0,0,0.45)] rouded-full">
+          <div className="relative shadow-[0_35px_60px_-20px_rgba(0,0,0,0.45)]  ">
             <img
               src={artist.image}
               alt={artist.name}
-              className="h-[560px] w-full object-cover grayscale contrast-110"
+              className="h-[460px] w-full object-cover grayscale contrast-110 "
             />
           </div>
 
           {/* floral decoration, bottom left, overlapping the photo */}
-          <img
+          {/* <img
             src="/images/3rdfloral.png"
             alt=""
             aria-hidden="true"
             className="pointer-events-none absolute -bottom-10 -left-10 w-40 drop-shadow-[0_10px_15px_rgba(0,0,0,0.25)] md:w-48"
-          />
+          /> */}
 
           {/* little washi-tape accent holding the flowers */}
        

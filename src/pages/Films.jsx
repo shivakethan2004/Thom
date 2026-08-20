@@ -1,57 +1,81 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, X, ArrowLeft } from "lucide-react";
-import Button from "../components/ui/Button";
-import { films, routes, cta } from "../constants/links";
+import { Play, X } from "lucide-react";
+import { films } from "../constants/links";
 
-/* -----------------------------------------------------------------------
- * FilmRow
- * -----------------------------------------------------------------------
- * One wide film entry: a big playable thumbnail on one side, a text
- * panel with the title/description/CTA on the other. Clicking the
- * thumbnail swaps it for an inline Vimeo player, same pattern used by
- * the homepage FilmCard.
- * ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+ * Leaf — small decorative flourish flanking the page kicker, matching
+ * the mark already used in HomePage/StoriesAndFilms.jsx.
+ * ------------------------------------------------------------------- */
+function Leaf({ className }) {
+  return (
+    <svg viewBox="0 0 24 60" fill="none" className={className}>
+      <path d="M12 2C7 10 4 18 4 30s3 20 8 28" stroke="currentColor" strokeWidth="1" />
+      {[10, 20, 30, 40, 50].map((y, i) => (
+        <path key={i} d={`M${5 + (i % 2)} ${y}q7-3 9 4`} stroke="currentColor" strokeWidth="1" />
+      ))}
+    </svg>
+  );
+}
+
+function formatDuration(totalSeconds) {
+  if (!totalSeconds && totalSeconds !== 0) return null;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = Math.round(totalSeconds % 60);
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+/* ---------------------------------------------------------------------
+ * FilmRow — thumbnail + play/inline-player on the left, title/category
+ * on the right. No description copy, per the current design.
+ * ------------------------------------------------------------------- */
 function FilmRow({ film, index }) {
-  const cardRef = useRef(null);
+  const rowRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [duration, setDuration] = useState(film.duration ?? null);
+
   const thumbnailUrl = `https://vumbnail.com/${film.vimeoId}.jpg`;
-  const reversed = index % 2 === 1;
 
   useEffect(() => {
-    if (playing && cardRef.current) {
+    if (duration !== null) return;
+    let cancelled = false;
+
+    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${film.vimeoId}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.duration) {
+          setDuration(formatDuration(data.duration));
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [film.vimeoId, duration]);
+
+  useEffect(() => {
+    if (playing && rowRef.current) {
       const id = requestAnimationFrame(() => {
-        cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        rowRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       });
       return () => cancelAnimationFrame(id);
     }
   }, [playing]);
 
   return (
-    <div
-      ref={cardRef}
-      className={`grid grid-cols-1 gap-6 md:grid-cols-5 md:gap-8 lg:gap-10 ${
-        reversed ? "md:[direction:rtl]" : ""
-      }`}
+    <motion.div
+      ref={rowRef}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
+      className="border-b border-olive/10 py-8 first:pt-0 last:border-b-0 md:py-10"
     >
-      {/* ---- Video ---- */}
-      <div className="md:col-span-3 md:[direction:ltr]">
-        <motion.div
-          layout
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-sm bg-olive-800"
-        >
-          {playing && (
-            <button
-              onClick={() => setPlaying(false)}
-              aria-label="Close video"
-              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-olive-900/70 text-cream transition-colors hover:bg-olive-900"
-            >
-              <X size={16} />
-            </button>
-          )}
-
+      <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+        {/* ---- Thumbnail / inline player ---- */}
+        <div className="relative w-full overflow-hidden rounded-xl bg-olive-800 md:w-[45%]">
           <AnimatePresence mode="wait" initial={false}>
             {playing ? (
               <motion.div
@@ -59,9 +83,16 @@ function FilmRow({ film, index }) {
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="aspect-video w-full"
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="relative aspect-video w-full"
               >
+                <button
+                  onClick={() => setPlaying(false)}
+                  aria-label="Close video"
+                  className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-olive-900/70 text-cream transition-colors hover:bg-olive-900"
+                >
+                  <X size={16} />
+                </button>
                 <iframe
                   title={film.title}
                   src={`https://player.vimeo.com/video/${film.vimeoId}?h=${film.vimeoHash}&autoplay=1`}
@@ -79,8 +110,8 @@ function FilmRow({ film, index }) {
                 aria-label={`Play ${film.title}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 1.04 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
                 className="group relative block aspect-video w-full text-left"
               >
                 <img
@@ -88,111 +119,78 @@ function FilmRow({ film, index }) {
                   alt={film.title}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-olive-900/25 transition-colors duration-300 group-hover:bg-olive-900/10" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream/90 text-olive shadow-lg transition-transform duration-300 group-hover:scale-110 md:h-16 md:w-16">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream/90 text-olive shadow-lg transition-transform duration-300 group-hover:scale-110">
                     <Play size={20} fill="currentColor" />
                   </span>
                 </div>
-                {film.duration && (
-                  <span className="absolute bottom-3 right-3 rounded-full bg-olive-900/70 px-2.5 py-1 font-body text-[11px] tracking-wide text-cream">
-                    {film.duration}
+                {duration && (
+                  <span className="absolute bottom-3 right-3 rounded bg-olive-900/70 px-2 py-1 font-body text-[0.65rem] tracking-wide text-cream">
+                    {duration}
                   </span>
                 )}
               </motion.button>
             )}
           </AnimatePresence>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* ---- Info panel ---- */}
-      <div className="relative flex items-center md:col-span-2 md:[direction:ltr]">
-        <div className="relative w-full rounded-sm bg-olive-50/70 px-7 py-8 md:px-9 md:py-10">
-          <img
-            src="/images/floral2.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-4 -top-6 w-16 rotate-12 opacity-40 md:w-20"
-          />
-
-          <p className="font-body text-[10px] tracking-widest2 text-olive/50">
+        {/* ---- Title / category ---- */}
+        <div className="flex flex-1 flex-col items-start">
+          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
             {film.category}
-          </p>
-          <h3 className="mt-3 font-display text-2xl font-light text-olive md:text-3xl">
+          </span>
+          <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
             {film.title}
           </h3>
-          <p className="mt-4 max-w-sm font-body text-sm leading-relaxed text-olive/70">
-            {film.description}
-          </p>
-
           <button
-            type="button"
             onClick={() => setPlaying(true)}
-            className="mt-6 inline-flex items-center gap-2 font-body text-xs tracking-widest2 text-olive/80 transition-colors hover:text-olive"
+            className="mt-4 font-body text-xs tracking-widest2 text-olive/70 transition-colors hover:text-olive"
           >
-            WATCH FILM <span aria-hidden="true">→</span>
+            WATCH FILM →
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Films() {
   return (
-    <section className="relative overflow-hidden bg-cream px-6 py-20 text-olive md:px-10 lg:py-28">
-      {/* ---- Decorative floral, top right ---- */}
+    <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
+      {/* ---- Decorative corner floral ---- */}
       <img
-        src="/images/floral2.png"
+        src="/images/3rdfloral.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-0 w-40 opacity-70 md:w-56 lg:w-64"
+        className="pointer-events-none absolute -right-10 top-0 hidden w-56 opacity-40 md:block lg:w-72"
       />
 
-      <div className="relative mx-auto max-w-content">
-        {/* ---- Back link ---- */}
-        <Link
-          to={routes.home}
-          className="inline-flex items-center gap-2 font-body text-xs tracking-widest2 text-olive/60 transition-colors hover:text-olive"
-        >
-          <ArrowLeft size={14} /> BACK TO HOME
-        </Link>
+      <div className="relative z-10 mx-auto max-w-content">
+        {/* ---- Back to home ---- */}
+     
 
         {/* ---- Header ---- */}
-        <div className="mt-10 text-center">
-          <span className="font-body text-[11px] tracking-widest2 text-olive/60">
-            FILMS
-          </span>
-          <h1 className="mt-4 font-display text-5xl font-light tracking-tight md:text-6xl lg:text-7xl">
+        <div className="relative mx-auto mt-10 flex max-w-2xl flex-col items-center text-center">
+          <Leaf className="absolute left-0 top-2 hidden h-16 w-10 text-olive/30 md:block" />
+          <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
+
+          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">FILMS</span>
+          <h1 className="mt-4 font-display text-4xl font-light tracking-tight md:text-6xl">
             Our Films
           </h1>
-          <p className="mx-auto mt-5 max-w-md font-body text-sm leading-relaxed text-olive/70 md:text-base">
+          <p className="mt-4 max-w-md font-body text-sm text-olive/70 md:text-base">
             Cinematic tales of love, emotion and moments that move.
           </p>
         </div>
 
-        {/* ---- Film rows ---- */}
-        <div className="mt-16 flex flex-col gap-14 md:mt-20 md:gap-16">
-          {films.map((film, i) => (
-            <FilmRow key={film.vimeoId} film={film} index={i} />
+        {/* ---- Film list ---- */}
+        <div className="mx-auto mt-14 max-w-3xl md:mt-20">
+          {films.map((film, index) => (
+            <FilmRow key={film.vimeoId} film={film} index={index} />
           ))}
-        </div>
-
-        {/* ---- Footer CTA ---- */}
-        <div className="mt-20 flex flex-col items-center gap-6 text-center md:mt-24">
-          <div className="h-px w-16 bg-sand" />
-          <p className="font-body text-sm text-olive/70">
-            More films. More stories. More memories.
-          </p>
-          <Button
-            href={cta.primary}
-            variant="solid"
-            className="bg-olive text-cream hover:bg-olive-700"
-          >
-            Explore More Films
-          </Button>
         </div>
       </div>
     </section>
