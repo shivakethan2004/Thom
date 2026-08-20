@@ -70,7 +70,7 @@
 }
 
 .loader__pct {
-  font-family: var(--font-body, "NCL Gasdrifo", sans-serif);
+  font-family: var(--font-body, "Cormorant Garamond", serif);
   font-size: 11px;
   letter-spacing: 0.1em;
   color: rgba(246, 239, 228, 0.7);

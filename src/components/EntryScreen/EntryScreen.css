@@ -11,7 +11,7 @@
     --color-dark: #232420;
 
     --font-display: "Gilmer", "Georgia", serif;
-    --font-body: "NCL Gasdrifo", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Cormorant Garamond", "Georgia", serif;
 
     --entry-gap: clamp(5px, 0.45vw, 10px);
   }

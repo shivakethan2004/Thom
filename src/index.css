@@ -27,7 +27,8 @@
   --color-grey: #a8a8a2;
 
   --font-display: "Gilmer", serif;
-  --font-body: "NCL Gasdrifo", sans-serif;
+  --font-body: "Cormorant Garamond", serif;
+  --font-accent: "Bodoni Moda", serif;
 
   --tracking-widest2: 0.28em;
 
@@ -35,7 +36,7 @@
 }
 
 html {
-  font-family: "NCL Gasdrifo", sans-serif;
+  font-family: "Cormorant Garamond", serif;
 }
 
 h1, h2, h3, h4, h5, h6 {

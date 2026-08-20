@@ -54,7 +54,9 @@
   font-display: swap;
 }
 
-/* NCL Gasdrifo — body/utility face */
+/* NCL Gasdrifo — kept in the project but no longer used for body copy
+   while the client decides on it. Still available as `font-family: "NCL
+   Gasdrifo"` if needed elsewhere. */
 @font-face {
   font-family: "NCL Gasdrifo";
   src: url("/fonts/NCLGasdrifo-Regular.otf") format("opentype");
@@ -63,14 +65,57 @@
   font-display: swap;
 }
 
+/* Cormorant Garamond — new body face (variable: weight 300–700).
+   A Garamond revival built for reading at text sizes — replaces NCL
+   Gasdrifo as the default body copy face. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/CormorantGaramond-VariableFont_wght.ttf") format("truetype-variations"),
+       url("/fonts/CormorantGaramond-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/CormorantGaramond-Italic-VariableFont_wght.ttf") format("truetype-variations"),
+       url("/fonts/CormorantGaramond-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bodoni Moda — new accent/editorial face (variable: weight 400–900,
+   optical size 6–96). High-contrast fashion-serif, used sparingly for
+   hero and section headlines to give the client a second option
+   alongside Gilmer. */
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("/fonts/BodoniModa-VariableFont_opsz,wght.ttf") format("truetype-variations"),
+       url("/fonts/BodoniModa-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  src: url("/fonts/BodoniModa-Italic-VariableFont_opsz,wght.ttf") format("truetype-variations"),
+       url("/fonts/BodoniModa-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ───────────────────────────────────────────────────────────────────────
    BASE WIRING
-   Tailwind's `font-display` / `font-body` utilities (see tailwind.config.js)
-   already point at these families. This just sets sane page defaults so
-   you don't have to add font-body to every single element.
+   Tailwind's `font-display` / `font-body` / `font-accent` utilities (see
+   src/index.css @theme) already point at these families. This just sets
+   sane page defaults so you don't have to add font-body to every element.
    ─────────────────────────────────────────────────────────────────────── */
 html {
-  font-family: "NCL Gasdrifo", sans-serif;
+  font-family: "Cormorant Garamond", serif;
 }
 
 h1, h2, h3, h4, h5, h6 {

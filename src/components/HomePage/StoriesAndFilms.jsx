@@ -248,7 +248,7 @@ export default function StoriesAndFilms() {
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
               STORIES
             </span>
-            <h2 className="mt-3 font-display text-3xl font-light text-olive md:text-4xl">
+            <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
               Our Latest Stories
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">
@@ -258,14 +258,14 @@ export default function StoriesAndFilms() {
 
           {/* ---- Stories grid — arch photo + base floral accent ---- */}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
-            {stories.map((story) => (
+            {stories.slice(0, 4).map((story) => (
               <Link
                 key={story.title}
                 href={story.href}
                 className="group flex flex-col items-center text-center"
               >
-                <div className="relative h-44 w-44 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-72 lg:w-72">
-                  <div className="h-full w-full overflow-hidden rounded-t-full">
+                <div className="relative h-74 w-54 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-102 lg:w-72">
+                  <div className="h-full w-full overflow-hidden rounded-tl-full rounded-tr-full ">
                     <img
                       src={story.image}
                       alt={story.title}
@@ -307,7 +307,7 @@ export default function StoriesAndFilms() {
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
               FILMS
             </span>
-            <h2 className="mt-3 font-display text-3xl font-light text-olive md:text-4xl">
+            <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
               Our Films
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">
