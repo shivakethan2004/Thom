@@ -71,11 +71,11 @@ function FilmRow({ film, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
-      className="border-b border-olive/10 py-8 first:pt-0 last:border-b-0 md:py-10"
+      className="border-b border-olive/10 py-10 first:pt-0 last:border-b-0 md:py-14"
     >
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+      <div className="flex flex-col gap-6">
         {/* ---- Thumbnail / inline player ---- */}
-        <div className="relative w-full overflow-hidden rounded-xl bg-olive-800 md:w-[45%]">
+        <div className="relative w-full overflow-hidden rounded-xl bg-olive-800">
           <AnimatePresence mode="wait" initial={false}>
             {playing ? (
               <motion.div
@@ -138,16 +138,18 @@ function FilmRow({ film, index }) {
         </div>
 
         {/* ---- Title / category ---- */}
-        <div className="flex flex-1 flex-col items-start">
-          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
-            {film.category}
-          </span>
-          <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
-            {film.title}
-          </h3>
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
+              {film.category}
+            </span>
+            <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
+              {film.title}
+            </h3>
+          </div>
           <button
             onClick={() => setPlaying(true)}
-            className="mt-4 font-body text-xs tracking-widest2 text-olive/70 transition-colors hover:text-olive"
+            className="font-body text-xs tracking-widest2 text-olive/70 transition-colors hover:text-olive"
           >
             WATCH FILM →
           </button>
@@ -187,7 +189,7 @@ export default function Films() {
         </div>
 
         {/* ---- Film list ---- */}
-        <div className="mx-auto mt-14 max-w-3xl md:mt-20">
+        <div className="mx-auto mt-14 max-w-4xl md:mt-20">
           {films.map((film, index) => (
             <FilmRow key={film.vimeoId} film={film} index={index} />
           ))}

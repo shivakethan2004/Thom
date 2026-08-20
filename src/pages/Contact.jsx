@@ -69,7 +69,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
+    <section className="relative min-h-screen w-full overflow-hidden bg-cream px-6 pb-16 pt-32 text-olive sm:pt-36 md:px-12 md:pb-24 md:pt-40">
       <div className="relative z-10 mx-auto grid max-w-content gap-16 md:grid-cols-2 md:gap-20">
         {/* ---- Left column — intro copy ---- */}
         <div className="flex flex-col justify-center">

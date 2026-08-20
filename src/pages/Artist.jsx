@@ -10,7 +10,7 @@ export const artist = {
 
 export default function ArtistSection() {
   return (
-    <section className="relative w-full  overflow-hidden bg-cream px-6 py-20 md:px-16 lg:py-28">
+    <section className="relative min-h-screen w-full overflow-hidden bg-cream px-6 pb-20 pt-32 sm:pt-36 md:px-16 md:pt-40 lg:pb-28">
       {/* faint decorative branch, background right */}
       <img
         src="/images/3rdfloral.png"
