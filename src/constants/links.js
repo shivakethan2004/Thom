@@ -139,6 +139,7 @@ export const films = [
 
 export const cta = {
   primary: "/contact",
+  contact: "/contact",
   stories: "/stories",
   films: "/films",
 };

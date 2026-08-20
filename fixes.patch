@@ -1,0 +1,109 @@
+diff --git a/src/constants/links.js b/src/constants/links.js
+index 05c2926..90259e9 100644
+--- a/src/constants/links.js
++++ b/src/constants/links.js
+@@ -139,6 +139,7 @@ export const films = [
+ 
+ export const cta = {
+   primary: "/contact",
++  contact: "/contact",
+   stories: "/stories",
+   films: "/films",
+ };
+diff --git a/src/index.css b/src/index.css
+index 7421776..378f8c8 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -39,6 +39,11 @@ html {
+   font-family: "Cormorant Garamond", serif;
+ }
+ 
++html,
++body {
++  background-color: var(--color-cream);
++}
++
+ h1, h2, h3, h4, h5, h6 {
+   font-family: "Gilmer", serif;
+ }
+diff --git a/src/pages/Artist.jsx b/src/pages/Artist.jsx
+index 7fe224a..4314e20 100644
+--- a/src/pages/Artist.jsx
++++ b/src/pages/Artist.jsx
+@@ -10,7 +10,7 @@ export const artist = {
+ 
+ export default function ArtistSection() {
+   return (
+-    <section className="relative w-full  overflow-hidden bg-cream px-6 py-20 md:px-16 lg:py-28">
++    <section className="relative min-h-screen w-full overflow-hidden bg-cream px-6 pb-20 pt-32 sm:pt-36 md:px-16 md:pt-40 lg:pb-28">
+       {/* faint decorative branch, background right */}
+       <img
+         src="/images/3rdfloral.png"
+diff --git a/src/pages/Contact.jsx b/src/pages/Contact.jsx
+index 7f2a7f9..63a4a8d 100644
+--- a/src/pages/Contact.jsx
++++ b/src/pages/Contact.jsx
+@@ -69,7 +69,7 @@ export default function Contact() {
+   };
+ 
+   return (
+-    <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
++    <section className="relative min-h-screen w-full overflow-hidden bg-cream px-6 pb-16 pt-32 text-olive sm:pt-36 md:px-12 md:pb-24 md:pt-40">
+       <div className="relative z-10 mx-auto grid max-w-content gap-16 md:grid-cols-2 md:gap-20">
+         {/* ---- Left column — intro copy ---- */}
+         <div className="flex flex-col justify-center">
+diff --git a/src/pages/Films.jsx b/src/pages/Films.jsx
+index 24c6ce2..e82fcb4 100644
+--- a/src/pages/Films.jsx
++++ b/src/pages/Films.jsx
+@@ -71,11 +71,11 @@ function FilmRow({ film, index }) {
+       whileInView={{ opacity: 1, y: 0 }}
+       viewport={{ once: true, margin: "-80px" }}
+       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
+-      className="border-b border-olive/10 py-8 first:pt-0 last:border-b-0 md:py-10"
++      className="border-b border-olive/10 py-10 first:pt-0 last:border-b-0 md:py-14"
+     >
+-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
++      <div className="flex flex-col gap-6">
+         {/* ---- Thumbnail / inline player ---- */}
+-        <div className="relative w-full overflow-hidden rounded-xl bg-olive-800 md:w-[45%]">
++        <div className="relative w-full overflow-hidden rounded-xl bg-olive-800">
+           <AnimatePresence mode="wait" initial={false}>
+             {playing ? (
+               <motion.div
+@@ -138,16 +138,18 @@ function FilmRow({ film, index }) {
+         </div>
+ 
+         {/* ---- Title / category ---- */}
+-        <div className="flex flex-1 flex-col items-start">
+-          <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
+-            {film.category}
+-          </span>
+-          <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
+-            {film.title}
+-          </h3>
++        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
++          <div>
++            <span className="font-body text-[0.65rem] tracking-widest2 text-olive/50">
++              {film.category}
++            </span>
++            <h3 className="mt-2 font-display text-2xl font-light text-olive md:text-3xl">
++              {film.title}
++            </h3>
++          </div>
+           <button
+             onClick={() => setPlaying(true)}
+-            className="mt-4 font-body text-xs tracking-widest2 text-olive/70 transition-colors hover:text-olive"
++            className="font-body text-xs tracking-widest2 text-olive/70 transition-colors hover:text-olive"
+           >
+             WATCH FILM →
+           </button>
+@@ -187,7 +189,7 @@ export default function Films() {
+         </div>
+ 
+         {/* ---- Film list ---- */}
+-        <div className="mx-auto mt-14 max-w-3xl md:mt-20">
++        <div className="mx-auto mt-14 max-w-4xl md:mt-20">
+           {films.map((film, index) => (
+             <FilmRow key={film.vimeoId} film={film} index={index} />
+           ))}
