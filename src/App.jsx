@@ -96,59 +96,59 @@ export default function App() {
             <Route
               path="/"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Home />
-                </PageTransition>
+                // </PageTransition>
               }
             />
 
             <Route
               path="/the-artist"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Artist />
-                </PageTransition>
+                // </PageTransition>
               }
             />
 
             <Route
               path="/testimonials"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Testimonials />
-                </PageTransition>
+                // </PageTransition>
               }
             />
             <Route
               path="/stories"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Stories />
-                </PageTransition>
+                // </PageTransition>
               }
             />
             <Route
               path="/films"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Films />
-                </PageTransition>
+                // </PageTransition>
               }
             />
             <Route
               path="/contact"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <Contact />
-                </PageTransition>
+                // </PageTransition>
               }
             />
             <Route
               path="/stories/:slug"
               element={
-                <PageTransition>
+                // <PageTransition>
                   <StoryDetail />
-                </PageTransition>
+                // </PageTransition>
               }
             />
           </Route>
