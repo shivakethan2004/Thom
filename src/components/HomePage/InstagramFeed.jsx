@@ -89,7 +89,7 @@ export default function InstagramFeed() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.5, delay: (i % 6) * 0.05 }}
-                            className="group relative aspect-square w-[65%] flex-shrink-0 snap-start overflow-hidden rounded-xl sm:w-[38%] md:w-[28%] lg:w-[22%]"
+                            className="group relative aspect-[4/5] w-[65%] flex-shrink-0 snap-start overflow-hidden rounded-xl sm:w-[38%] md:w-[28%] lg:w-[22%]"
                         >
                             <img
                                 src={post.image}
