@@ -261,7 +261,7 @@ export default function StoriesAndFilms() {
             {stories.slice(0, 4).map((story) => (
               <Link
                 key={story.title}
-                href={story.href}
+                to={story.href}
                 className="group flex flex-col items-center text-center"
               >
                 <div className="relative h-74 w-54 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-102 lg:w-72">

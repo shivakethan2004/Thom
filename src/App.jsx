@@ -7,7 +7,7 @@ import PageTransition from "./components/PageTransition/PageTransition";
 import BloomOverlay from "./components/PageTransition/BloomOverlay";
 import GrainOverlay from "./components/PageTransition/GrainOverlay";
 import EntryScreen from "./components/EntryScreen/EntryScreen";
-
+import StoryDetail from "./pages/StoryDetail";
 import { motion as motionConfig } from "./config/motion";
 
 import Home from "./pages/Home";
@@ -140,6 +140,14 @@ export default function App() {
               element={
                 <PageTransition>
                   <Contact />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/stories/:slug"
+              element={
+                <PageTransition>
+                  <StoryDetail />
                 </PageTransition>
               }
             />
