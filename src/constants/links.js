@@ -33,9 +33,9 @@ export const navLinks = [
 // };
 
 export const social = {
-  instagram: "https://instagram.com/thehouseofmaya",
-  youtube: "https://youtube.com/@thehouseofmaya",
-  pinterest: "https://pinterest.com/thehouseofmaya",
+  instagram: "https://instagram.com/thehouseofmaya.in",
+  Vimeo: "https://vimeo.com/user91716331",
+
 };
 
 // Swap this for your real hosted asset once it's in /public/images.
@@ -148,7 +148,7 @@ export const contact = {
   phone: "+91 7207575063",
   phoneDisplay: "Sandeep : +91 7207575063",
   instagram: social.instagram,
-  instagramHandle: "@thehouseofmaya",
+  instagramHandle: "@thehouseofmaya.in",
   location: "Hyderabad, India",
 };
 
@@ -176,3 +176,26 @@ export const artist = {
   image: "https://images-pw.pixieset.com/elementfield/bOGl9zb/Sandeep-998b8475-2500.jpg",
   signature: "/images/signature.png",
 }
+
+export const posts = [
+  {
+    image: "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/769777515_18427666474182668_8112181352834421217_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=RAeFnxd-qvsQ7kNvwFF5uK1&_nc_oc=AdqYMheEeMwCBNOYhiyKNcW6VtTogBJUhbIqowA7qAG2RUIgebX6Vvyng2_lCw7uraw&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=UBsEmC0sp9RmqnU_Ly6eOw&_nc_tpa=Q5bMBQJuz_S4O6dFujeaHp5O2w5cF6mq2nxvfgOI15G1H7PLdMQy_unVi9lbmQGm9kbhakNF05w_2IaC&oh=00_AQEuxDCx_RETTUhsSG9NXerSj0EJpfT1InHJqi0G1YU18w&oe=6A92724A",
+    href: "https://www.instagram.com/p/DGs3MBhTpAG/?img_index=4",
+  },
+  {
+    image: "https://scontent-sea1-1.cdninstagram.com/v/t51.82787-15/760707892_18426334477182668_3480091300816295899_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=cb_6P6hpfHsQ7kNvwF46SoL&_nc_oc=AdpOVoGDki_O2FHTGt42r_jMR9ZylzIZKgIrqVcjd82t2Vfp7Aa8HTfnlujupf_sA3w&_nc_zt=23&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=UBsEmC0sp9RmqnU_Ly6eOw&_nc_tpa=Q5bMBQLvN5_le1TnWcfdGk0yjn1WAXLnhf5NZ9-VAxjc3zWVU4NvdORZff3EtFKTeHhFuphwhNHLVkTu&oh=00_AQE74VlKjJSM2O-zRTf0Me7K0dUykO1xEsF4kWk3xvQrag&oe=6A925D14",
+    href: "https://www.instagram.com/p/DR601X3E4bl/?img_index=6",
+  },
+  {
+    image: "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/742362234_18424344331182668_4006128240883395091_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=yg-WiGbpD_kQ7kNvwHdpxnI&_nc_oc=Adra0nX3ZGpayHqjQkpH79hPdVDwG0Din7IrGeQ3tUSxLU85rnSRUkos39oRVpxXHcY&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=UBsEmC0sp9RmqnU_Ly6eOw&_nc_tpa=Q5bMBQJzehHnNursqZV_fjQkHEEn0To-DDsnlfRXRgRDRSjTvnXhEp01VsU8v3FEYK6ZzleLPnLcKDzf&oh=00_AQF8SRIuvo5Q4v8uXyW3KDQOiv-Y4-5sHUJHBgRoPBqa9g&oe=6A924059",
+    href: "https://www.instagram.com/thehouseofmaya.in/p/Da9xm0sEctM/",
+  },
+  {
+    image: "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/727046017_18419608858182668_3803656922354077913_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=WYnVLUdTpYAQ7kNvwHnwHN3&_nc_oc=AdoOZicDYNM1geG-VLQoca2MtyzhSvrT6pX8ihsaPMioeh_SSK5y1iQfwg8oYlMiRE0&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=UBsEmC0sp9RmqnU_Ly6eOw&_nc_tpa=Q5bMBQKWt3gz5lR3gNWk_xvV-jAJifEvuGLd7AHsj4iy6-yy1qjL1v6ib9QVVszQH14tmBZxCMvmbOBL&oh=00_AQGlMf-cjyAgxUPEYPmDvNYysuluHW-ubh9iDBl1abbqAQ&oe=6A923ECC",
+    href: "https://www.instagram.com/p/DZyyMFTEWnc/?img_index=1",
+  },
+  {
+    image: "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/636714188_18400161484182668_4881028507631957672_n.webp?stp=dst-jpg_e35_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=zrTlZfpVa0kQ7kNvwFD2vjw&_nc_oc=AdoZJx4SOG4vtHU51Wu-L5nLbJirRnDF99ySzh8DdIP1PhJQkSRov_mw9lQ9Y4IYlvE&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&edm=ANo9K5cEAAAA&_nc_gid=UBsEmC0sp9RmqnU_Ly6eOw&_nc_tpa=Q5bMBQLYqT0_zSZroxqEhsvv_voD8Gr-gdRZ6d1o_kAybdW5MPshmchigdYK8Z1RZTdcsFD1byUqcRXi&oh=00_AQFMLv12PUtcgvD0MW-rL1CSuS-Sgr6apRPMDmjpDm60FA&oe=6A9248BC",
+    href: "https://www.instagram.com/p/DUvC1VpkdEk/?img_index=1",
+  },
+];

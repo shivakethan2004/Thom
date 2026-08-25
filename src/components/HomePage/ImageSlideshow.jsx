@@ -72,9 +72,7 @@ export default function ImageSlideshow({ interval = 5000 }) {
           <motion.div
             layout
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`relative w-full overflow-hidden rounded-2xl bg-olive-900 ${
-              isPortrait ? "h-[70vh] max-h-[640px]" : "aspect-[16/10]"
-            }`}
+            className="relative w-full overflow-hidden rounded-2xl bg-olive-900 h-[65vh] max-h-[520px] min-h-[320px] md:aspect-[16/10] md:h-auto md:max-h-none"
           >
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
@@ -85,23 +83,19 @@ export default function ImageSlideshow({ interval = 5000 }) {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0"
               >
-                {/* Soft blurred backdrop clone — fills the frame behind
-                    portrait images so there's no flat empty space on
-                    the sides, without affecting layout/sizing. */}
-                {isPortrait && (
-                  <img
-                    src={current.src}
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
-                  />
-                )}
+                {/* Always show the blurred backdrop now — landscape images
+          benefit from it too once they're object-contain'd, since
+          they'll often leave empty space top/bottom on mobile. */}
+                <img
+                  src={current.src}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
+                />
                 <img
                   src={current.src}
                   alt={current.caption}
-                  className={`relative h-full w-full ${
-                    isPortrait ? "object-contain" : "object-cover"
-                  }`}
+                  className="relative h-full w-full object-contain"
                   loading="eager"
                   decoding="async"
                 />
@@ -144,9 +138,8 @@ export default function ImageSlideshow({ interval = 5000 }) {
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? "w-6 bg-olive" : "w-1.5 bg-olive/30"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? "w-6 bg-olive" : "w-1.5 bg-olive/30"
+                }`}
             />
           ))}
         </div>
