@@ -19,6 +19,15 @@ const DEFAULT_GALLERY = {
 
 export const galleries = {
   "shaik-faruk-aira": DEFAULT_GALLERY,
+  "om-kriti-sneakpeek": {
+    slideshowId: "6aae0329413bbfbfc18848d4",
+    scriptSrc:
+      "https://galleries.thehouseofmaya.in/-om-kriti-sneakpeek/slideswebcomponentembed.js/6aae0329413bbfbfc18848d4?features=lightbox,pinterest&filtertags=",
+    thumbnail: "/images/om-kriti-sneakpeek-thumb.jpg",
+    name: "Om + Kriti",
+    subtitle: "Wedding",
+    date: "2026",
+  },
   // Add more real entries here later, e.g.:
   // "another-couple": {
   //   slideshowId: "xxxxxxxxxxxxxxxxxxxxxxxx",
