@@ -110,6 +110,13 @@ export const stories = [
     objectPosition: "62% 52%",
     href: "/stories/4",
   },
+  {
+    title: "Om + Kriti",
+    date: "2026",
+    image: "/images/om-kriti-sneakpeek-thumb.jpg",
+    objectPosition: "50% 50%",
+    href: "/stories/om-kriti-sneakpeek",
+  },
 ];
 
 export const films = [
