@@ -38,8 +38,8 @@ function StoryRow({ story, index }) {
           reversed ? "md:flex-row-reverse" : ""
         }`}
       >
-        <div className="relative w-full overflow-hidden rounded-xl md:w-[45%]">
-          <div className="aspect-[4/3] w-full">
+        <div className="relative w-full overflow-hidden rounded-xl md:w-[32%]">
+          <div className="mx-auto aspect-[3/4] w-full max-w-[280px] md:max-w-none">
             <img
               src={story.image}
               alt={story.title}
@@ -80,7 +80,7 @@ export default function Stories() {
 
       <div className="relative z-10 mx-auto max-w-content">
         {/* ---- Back to home ---- */}
-       
+
 
         {/* ---- Header ---- */}
         <div className="relative mx-auto mt-10 flex max-w-2xl flex-col items-center text-center">

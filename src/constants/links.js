@@ -82,40 +82,57 @@ export const slideshowImages = [
 ];
 
 export const stories = [
-  {
-    title: "Deepshika + Chandrakiran",
-    date: "MAY 18, 2024",
-    image: "https://images-pw.pixieset.com/elementfield/DGXQGYo/DN_Post-19-251e99db-1500.jpg",
-    objectPosition: "56% 35%",
-    href: "/stories/1",
-  },
-  {
-    title: "Ujjvala + Amit",
-    date: "MAY 20, 2024",
-    image: "https://images-pw.pixieset.com/elementfield/EjW6be6/DC_Sneakpeek-205-af4cdd95-1500.jpg",
-    objectPosition: "52% 34%",
-    href: "/stories/2",
-  },
-  {
-    title: "Vamsi + Vaishnavi",
-    date: "APR 24, 2024",
-    image: "https://images-pw.pixieset.com/elementfield/ZR6JZx8/UA_Sneakpeek-57-3a2b0f0e-1500.jpg",
-    objectPosition: "44% 32%",
-    href: "/stories/3",
-  },
+  // {
+  //   title: "Deepshika + Chandrakiran",
+  //   date: "MAY 18, 2024",
+  //   image: "https://images-pw.pixieset.com/elementfield/DGXQGYo/DN_Post-19-251e99db-1500.jpg",
+  //   objectPosition: "56% 35%",
+  //   href: "/stories/1",
+  // },
+  // {
+  //   title: "Ujjvala + Amit",
+  //   date: "MAY 20, 2024",
+  //   image: "https://images-pw.pixieset.com/elementfield/EjW6be6/DC_Sneakpeek-205-af4cdd95-1500.jpg",
+  //   objectPosition: "52% 34%",
+  //   href: "/stories/2",
+  // },
+  // {
+  //   title: "Vamsi + Vaishnavi",
+  //   date: "APR 24, 2024",
+  //   image: "https://images-pw.pixieset.com/elementfield/ZR6JZx8/UA_Sneakpeek-57-3a2b0f0e-1500.jpg",
+  //   objectPosition: "44% 32%",
+  //   href: "/stories/3",
+  // },
   {
     title: "Divya + Narasimha",
     date: "APR 19, 2024",
-    image: "https://images-pw.pixieset.com/elementfield/3KY9oQb/VV_Sneakpeek-14-fe52fa47-1500.jpg",
+    image: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/804/53804852/slideshows/6ab39e0ae07a0bac7b58d435/images/d_n_blog-19_pt(12490849363).jpg",
     objectPosition: "62% 52%",
-    href: "/stories/4",
+    href: "/stories/divya-narasimha",
   },
-  {
+{
     title: "Om + Kriti",
     date: "2026",
-    image: "/images/om-kriti-sneakpeek-thumb.jpg",
+    image:
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/763/53763667/slideshows/6aae0329413bbfbfc18848d4/images/o_k-blog-195_pt(12473893783).jpg",
     objectPosition: "50% 50%",
     href: "/stories/om-kriti-sneakpeek",
+  },
+  {
+    title: "Hema Bindu + Sridhar",
+    date: "2026", // TODO: confirm actual date
+    image:
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/643/53643093/slideshows/6aa28bc07f6fe2f83029a870/images/h_s-blog-29_pt(12436156015).jpg?rev=",
+    objectPosition: "50% 50%",
+    href: "/stories/hema-bindu-sridhar",
+  },
+  {
+    title: "Chitra + Suraj",
+    date: "2026", // TODO: confirm actual date
+    image:
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/765/53765644/slideshows/6aae755819390fb6e134ad9e/images/c_s_blog-18_pt(12485853852).jpg?rev=",
+    objectPosition: "50% 50%",
+    href: "/stories/chitra-suraj-sneak-peek",
   },
 ];
 
