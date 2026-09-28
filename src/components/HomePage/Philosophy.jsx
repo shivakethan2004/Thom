@@ -36,7 +36,7 @@ function ParallaxFloral({ src, className, scrollRange = [0, -40], progress }) {
   );
 }
 
-export default function Philosophy() {
+export default function Philosophy({ content = philosophy }) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -71,7 +71,7 @@ export default function Philosophy() {
         className="relative z-10 max-w-content mx-auto flex flex-col items-center px-6 text-center"
       >
         <Reveal index={0}>
-          <Kicker className="mb-4 text-olive/70">{philosophy.kicker}</Kicker>
+          <Kicker className="mb-4 text-olive/70">{content.kicker}</Kicker>
         </Reveal>
 
         <Reveal index={1}>
@@ -81,7 +81,7 @@ export default function Philosophy() {
             weight="font-light"
             className="max-w-xl mx-auto text-2xl text-olive md:text-3xl"
           >
-            {philosophy.title}
+            {content.title}
           </Heading>
         </Reveal>
 
@@ -94,7 +94,7 @@ export default function Philosophy() {
             size="base"
             className="max-w-md mx-auto text-sm font-light leading-relaxed text-olive/80 md:text-base"
           >
-            {philosophy.body}
+            {content.body}
           </Text>
         </Reveal>
 

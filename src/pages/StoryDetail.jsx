@@ -3,17 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { ArrowLeft } from "lucide-react";
 import GalleryEmbed from "../components/Gallery/GalleryEmbed";
 import { getGalleryBySlug } from "../constants/stories/galleries";
-
-function Leaf({ className }) {
-  return (
-    <svg viewBox="0 0 24 60" fill="none" className={className}>
-      <path d="M12 2C7 10 4 18 4 30s3 20 8 28" stroke="currentColor" strokeWidth="1" />
-      {[10, 20, 30, 40, 50].map((y, i) => (
-        <path key={i} d={`M${5 + (i % 2)} ${y}q7-3 9 4`} stroke="currentColor" strokeWidth="1" />
-      ))}
-    </svg>
-  );
-}
+import { getPublicStoryBySlug } from "../config/publicContent";
 
 function GalleryLoadingSkeleton() {
   return (
@@ -28,9 +18,25 @@ function GalleryLoadingSkeleton() {
 
 export default function StoryDetail() {
   const { slug } = useParams();
-  const story = getGalleryBySlug(slug);
+  const [story, setStory] = useState(() => getGalleryBySlug(slug));
   const [isGalleryLoaded, setIsGalleryLoaded] = useState(false);
   const [hasGalleryError, setHasGalleryError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setStory(getGalleryBySlug(slug));
+    getPublicStoryBySlug(slug)
+      .then((publishedStory) => {
+        if (!cancelled && publishedStory) setStory(publishedStory);
+      })
+      .catch((error) => {
+        console.warn("Unable to load story gallery from Supabase.", error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
 
   useEffect(() => {
     setIsGalleryLoaded(false);

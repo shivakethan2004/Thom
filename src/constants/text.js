@@ -17,10 +17,10 @@ export const site = {
 
 export const nav = {
   links: {
-    house: "The House",
+    house: "Home",
     stories: "Stories",
     films: "Films",
-    artist: "The Artist",
+    artist: "About",
     testimonials: "Testimonials",
   },
   cta: "Begin your Story",

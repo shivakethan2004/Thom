@@ -9,7 +9,7 @@ import GrainOverlay from "./components/PageTransition/GrainOverlay";
 import EntryScreen from "./components/EntryScreen/EntryScreen";
 import StoryDetail from "./pages/StoryDetail";
 import { motion as motionConfig } from "./config/motion";
-
+import AdminDashboard from "./pages/Admin/Admindashboard";
 import Home from "./pages/Home";
 import Artist from "./pages/Artist";
 import Testimonials from "./pages/Testimonials";
@@ -148,6 +148,14 @@ export default function App() {
               element={
                 // <PageTransition>
                   <StoryDetail />
+                // </PageTransition>
+              }
+            />
+            <Route
+              path="/Admin"
+              element={
+                // <PageTransition>
+                  <AdminDashboard />
                 // </PageTransition>
               }
             />

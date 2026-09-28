@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { stories } from "../constants/links";
+import { useEffect, useState } from "react";
+import { stories as defaultStories } from "../constants/links";
+import { getPublicStories } from "../config/publicContent";
 
 /* ---------------------------------------------------------------------
  * Leaf — small decorative flourish flanking the page kicker, matching
@@ -32,8 +34,8 @@ function StoryRow({ story, index }) {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: (index % 4) * 0.06 }}
       className="border-b border-olive/10 py-8 first:pt-0 last:border-b-0 md:py-10"
     >
-      <Link
-        to={story.href}
+      <StoryDestination
+        href={story.href}
         className={`group flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${
           reversed ? "md:flex-row-reverse" : ""
         }`}
@@ -62,12 +64,32 @@ function StoryRow({ story, index }) {
             READ STORY →
           </span>
         </div>
-      </Link>
+      </StoryDestination>
     </motion.div>
   );
 }
 
+function StoryDestination({ href, ...props }) {
+  if (/^https?:\/\//.test(href)) {
+    return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />;
+  }
+  return <Link to={href} {...props} />;
+}
+
 export default function Stories() {
+  const [stories, setStories] = useState(defaultStories);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicStories().then((items) => {
+      if (!cancelled) setStories(items);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
       {/* ---- Decorative corner floral ---- */}
@@ -99,10 +121,10 @@ export default function Stories() {
         {/* ---- Story list ---- */}
         <div className="mx-auto mt-14 max-w-3xl md:mt-20">
           {stories.map((story, index) => (
-            <StoryRow key={story.title} story={story} index={index} />
+            <StoryRow key={story.slug || story.title} story={story} index={index} />
           ))}
         </div>
       </div>
     </section>
   );
-}
+} 

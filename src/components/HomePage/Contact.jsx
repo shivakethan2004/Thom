@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import Reveal from "../PageTransition/Reveal";
-import { contact, cta } from "../../constants/links";
+import { contact as defaultContact, cta } from "../../constants/links";
 /* lucide-react no longer exports a trademarked "Instagram" glyph,
    so we draw the classic rounded-square + ring + dot mark ourselves. */
 function InstagramIcon({ size = 14, className }) {
@@ -51,7 +51,7 @@ function ParallaxDrift({ className, scrollRange = [0, -40], progress, children }
   );
 }
 
-export default function Contact() {
+export default function Contact({ contactInfo = defaultContact }) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -155,31 +155,31 @@ export default function Contact() {
           <div className="mx-auto h-px w-16 bg-cream/20" />
           <div className="mt-10 flex flex-col items-center justify-center gap-6 text-cream/70 sm:flex-row sm:gap-10">
             <a
-              href={`mailto:${contact.email}`}
+              href={`mailto:${contactInfo.email}`}
               className="group flex items-center gap-2 font-body text-xs tracking-wide transition-colors duration-300 hover:text-cream"
             >
               <Mail size={14} className="text-cream/50 transition-colors group-hover:text-cream" />
-              {contact.email}
+              {contactInfo.email}
             </a>
             <a
-              href={`tel:${contact.phone}`}
+              href={`tel:${contactInfo.phone}`}
               className="group flex items-center gap-2 font-body text-xs tracking-wide transition-colors duration-300 hover:text-cream"
             >
               <Phone size={14} className="text-cream/50 transition-colors group-hover:text-cream" />
-              {contact.phone}
+              {contactInfo.phoneDisplay}
             </a>
             <a
-              href={contact.instagram}
+              href={contactInfo.instagram}
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-2 font-body text-xs tracking-wide transition-colors duration-300 hover:text-cream"
             >
               <InstagramIcon size={14} className="text-cream/50 transition-colors group-hover:text-cream" />
-              {contact.instagramHandle}
+              {contactInfo.instagramHandle}
             </a>
             <span className="flex items-center gap-2 font-body text-xs tracking-wide text-cream/70">
               <MapPin size={14} className="text-cream/50" />
-              {contact.location}
+              {contactInfo.location}
             </span>
           </div>
         </Reveal>

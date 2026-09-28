@@ -46,40 +46,37 @@ export const media = {
   // heroImage: "https://images-pw.pixieset.com/elementfield/3xAGnMA/SS_Sneakpeek-23-4ec530b1-1500.jpg",
 };
 // constants/links.js — add
+
 export const slideshowImages = [
+
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/Mp-Website-2-891040ac-1000.JPG",
-    caption: "A celebration worth remembering"
-  },
-  {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/AT-9-8027cb02-1000.jpg",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/c_s_slide-1_pt(12491381159).jpg",
     caption: "A smile only they could share"
   },
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/DC_Coupleshoot-89-83b09299-1000.jpg",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/h_s-1_pt(12480510674).jpg",
     caption: "Somewhere between laughter and love"
   },
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/CS_CSPostwithoutlogo-1-c26db77c-1000.jpg",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/h_s-2_pt(12480510675).jpg",
     caption: "The little moments say it all"
   },
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/page04-4ffdfaf4-1000.JPG",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/h_s-thumbnail-2_pt(12490694998).jpg",
     caption: "Held close, just as it should be"
   },
+
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/page0-e6520b6b-1000.JPG",
-    caption: "A quiet moment before forever"
-  },
-  {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/page00-a5398a98-1000.JPG",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/c_s_slide-2_pt(12491381160).jpg",
     caption: "Running freely into the moment"
   },
   {
-    src: "https://images-pw.pixieset.com/elementfield/7A1WrA/VV_Sneakpeek-14-b6e7b383-1000.jpg",
+    src: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/c_s_slide-3_pt(12491381161).jpg",
     caption: "Love, caught in the golden hour"
   }
 ];
+
+
 
 export const stories = [
   // {
@@ -106,15 +103,15 @@ export const stories = [
   {
     title: "Divya + Narasimha",
     date: "APR 19, 2024",
-    image: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/804/53804852/slideshows/6ab39e0ae07a0bac7b58d435/images/d_n_blog-19_pt(12490849363).jpg",
+    image: "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/d_n_thumbnail-1_pt(12490968944).jpg",
     objectPosition: "62% 52%",
     href: "/stories/divya-narasimha",
   },
-{
+  {
     title: "Om + Kriti",
     date: "2026",
     image:
-      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/763/53763667/slideshows/6aae0329413bbfbfc18848d4/images/o_k-blog-195_pt(12473893783).jpg",
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/cover-2_pt(12490659552).jpg",
     objectPosition: "50% 50%",
     href: "/stories/om-kriti-sneakpeek",
   },
@@ -122,16 +119,14 @@ export const stories = [
     title: "Hema Bindu + Sridhar",
     date: "2026", // TODO: confirm actual date
     image:
-      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/643/53643093/slideshows/6aa28bc07f6fe2f83029a870/images/h_s-blog-29_pt(12436156015).jpg?rev=",
-    objectPosition: "50% 50%",
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/h_s-thumbnail-1_pt(12490694997).jpg", objectPosition: "50% 50%",
     href: "/stories/hema-bindu-sridhar",
   },
   {
     title: "Chitra + Suraj",
     date: "2026", // TODO: confirm actual date
     image:
-      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/765/53765644/slideshows/6aae755819390fb6e134ad9e/images/c_s_blog-18_pt(12485853852).jpg?rev=",
-    objectPosition: "50% 50%",
+      "https://pictime7eus1public-pub-hdf3hecqdpaqeuev.a02.azurefd.net/pictures/53/786/53786715/slideshows/6ab4d4f9c3019c989e0ba534/images/c_s_thumbnail-1_pt(12491378125).jpg", objectPosition: "50% 50%",
     href: "/stories/chitra-suraj-sneak-peek",
   },
 ];
@@ -184,13 +179,13 @@ export const testimonials = [
   },
   {
     name: "Divya & Narasimha",
-    text: "I couldn't be happier choosing Mayas pixels! From start to finish, they made the entire process seamless and enjoyable. They took the time to understand my vision and the style I wanted, which truly showed in the final photos. They were not only professional but also warm and easy to work with. Each one captures the emotion and beauty of the day perfectly. Every special moment, from the quiet glances to the big celebrations, was captured with such care & artistry ♥️", 
-    url:"https://images-pw.pixieset.com/elementfield/OWQQdjw/DN_Engagement-201-974421fb-2500.JPG",
+    text: "I couldn't be happier choosing Mayas pixels! From start to finish, they made the entire process seamless and enjoyable. They took the time to understand my vision and the style I wanted, which truly showed in the final photos. They were not only professional but also warm and easy to work with. Each one captures the emotion and beauty of the day perfectly. Every special moment, from the quiet glances to the big celebrations, was captured with such care & artistry ♥️",
+    url: "https://images-pw.pixieset.com/elementfield/OWQQdjw/DN_Engagement-201-974421fb-2500.JPG",
   },
   {
     name: "Teja & Harika",
-    text:"We are extremely happy with the work from Mayas Pixels. Sandeep and his team are talented photographers who beautifully captured the important moments and emotions throughout our wedding ceremonies. We especially loved the candid shots that truly reflect the joy of the day.Their professionalism and communication were excellent, and the team was always punctual. We are grateful to have chosen Mayas Pixels to capture our special moments and would highly recommend them for wedding photography.",
-    url:"https://images-pw.pixieset.com/elementfield/VM99vlm/TH-withlogo-8-5c5e938a-2500.jpg",
+    text: "We are extremely happy with the work from Mayas Pixels. Sandeep and his team are talented photographers who beautifully captured the important moments and emotions throughout our wedding ceremonies. We especially loved the candid shots that truly reflect the joy of the day.Their professionalism and communication were excellent, and the team was always punctual. We are grateful to have chosen Mayas Pixels to capture our special moments and would highly recommend them for wedding photography.",
+    url: "https://images-pw.pixieset.com/elementfield/VM99vlm/TH-withlogo-8-5c5e938a-2500.jpg",
   }
 ]
 

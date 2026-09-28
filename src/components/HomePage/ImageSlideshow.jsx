@@ -1,69 +1,38 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { slideshowImages } from "../../constants/links";
 
-export default function ImageSlideshow({ interval = 5000 }) {
+export default function ImageSlideshow({ interval = 5000, images = slideshowImages }) {
+  const slides = images?.length ? images : slideshowImages;
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [orientations, setOrientations] = useState({});
-  const [ready, setReady] = useState(false);
 
   const goTo = useCallback((i) => {
     setDirection(i > index ? 1 : -1);
-    setIndex((i + slideshowImages.length) % slideshowImages.length);
-  }, [index]);
+    setIndex((i + slides.length) % slides.length);
+  }, [index, slides.length]);
 
   const next = () => goTo(index + 1);
   const prev = () => goTo(index - 1);
+  const activeIndex = index % slides.length;
 
-  // Preload every slide once on mount and record its orientation up
-  // front. This means by the time a given slide is shown, we already
-  // know whether it's portrait or landscape — no waiting on that
-  // slide's own onLoad, which was causing the container to render at
-  // the previous slide's size and then suddenly snap/resize once the
-  // new image finished loading.
+  // Preload slides so each image is ready when the carousel advances.
   useEffect(() => {
-    let cancelled = false;
-    const results = {};
-    let loadedCount = 0;
-
-    slideshowImages.forEach((img, i) => {
-      const probe = new Image();
-      probe.src = img.src;
-      probe.onload = () => {
-        if (cancelled) return;
-        results[i] =
-          probe.naturalHeight > probe.naturalWidth ? "portrait" : "landscape";
-        loadedCount += 1;
-        // Update incrementally so the first slide can render as soon as
-        // its own orientation is known, without waiting on every image.
-        setOrientations((prev) => ({ ...prev, [i]: results[i] }));
-        if (loadedCount === slideshowImages.length) setReady(true);
-      };
-      probe.onerror = () => {
-        if (cancelled) return;
-        results[i] = "landscape";
-        loadedCount += 1;
-        setOrientations((prev) => ({ ...prev, [i]: "landscape" }));
-        if (loadedCount === slideshowImages.length) setReady(true);
-      };
+    slides.forEach(({ src }) => {
+      new Image().src = src;
     });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  }, [slides]);
 
   useEffect(() => {
-    const t = setInterval(next, interval);
+    const t = setInterval(() => {
+      setDirection(1);
+      setIndex((currentIndex) => (currentIndex + 1) % slides.length);
+    }, interval);
     return () => clearInterval(t);
-  }, [index, interval]);
+  }, [interval, slides.length]);
 
-  const current = slideshowImages[index];
-  // Default to landscape only as a first-paint fallback before preload
-  // resolves; in practice this is only visible for a frame or two.
-  const isPortrait = orientations[index] === "portrait";
+  const current = slides[activeIndex];
 
   return (
     <section className="w-full bg-cream py-16 md:py-24">
@@ -133,12 +102,12 @@ export default function ImageSlideshow({ interval = 5000 }) {
         </AnimatePresence>
 
         <div className="mt-5 flex justify-center gap-2">
-          {slideshowImages.map((_, i) => (
+          {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? "w-6 bg-olive" : "w-1.5 bg-olive/30"
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-olive" : "w-1.5 bg-olive/30"
                 }`}
             />
           ))}

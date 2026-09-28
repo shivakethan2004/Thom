@@ -196,7 +196,7 @@ function FilmCard({ film }) {
   );
 }
 
-export default function StoriesAndFilms() {
+export default function StoriesAndFilms({ storyItems = stories, filmItems = films }) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -258,10 +258,17 @@ export default function StoriesAndFilms() {
 
           {/* ---- Stories grid — arch photo + base floral accent ---- */}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
-            {stories.slice(0, 4).map((story) => (
-              <Link
+            {storyItems.slice(0, 4).map((story) => {
+              const isExternal = /^https?:\/\//.test(story.href);
+              const StoryLink = isExternal ? "a" : Link;
+              const destination = isExternal
+                ? { href: story.href, target: "_blank", rel: "noopener noreferrer" }
+                : { to: story.href };
+
+              return (
+              <StoryLink
                 key={story.title}
-                to={story.href}
+                {...destination}
                 className="group flex flex-col items-center text-center"
               >
                 <div className="relative h-74 w-54 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-102 lg:w-72">
@@ -290,8 +297,9 @@ export default function StoriesAndFilms() {
                 <span className="mt-2 font-body text-xs tracking-wide text-olive/70 transition-colors group-hover:text-olive">
                   Read story →
                 </span>
-              </Link>
-            ))}
+              </StoryLink>
+              );
+            })}
           </div>
 
           <div className="mt-12 flex justify-center">
@@ -316,7 +324,7 @@ export default function StoriesAndFilms() {
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {films.map((film) => (
+            {filmItems.map((film) => (
               <FilmCard key={film.vimeoId} film={film} />
             ))}
           </div>

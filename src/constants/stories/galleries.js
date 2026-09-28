@@ -62,6 +62,7 @@ export const galleries = {
     subtitle: "Wedding",
     date: "2026", // TODO: confirm actual date
   },
+  
 
   // Add more real entries here later, e.g.:
   // "another-couple": {

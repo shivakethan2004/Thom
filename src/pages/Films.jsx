@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
-import { films } from "../constants/links";
+import { films as defaultFilms } from "../constants/links";
+import { getPublicFilms } from "../config/publicContent";
 
 /* ---------------------------------------------------------------------
  * Leaf — small decorative flourish flanking the page kicker, matching
@@ -160,6 +160,19 @@ function FilmRow({ film, index }) {
 }
 
 export default function Films() {
+  const [films, setFilms] = useState(defaultFilms);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicFilms().then((items) => {
+      if (!cancelled) setFilms(items);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-cream px-6 py-16 text-olive md:px-12 md:py-24">
       {/* ---- Decorative corner floral ---- */}

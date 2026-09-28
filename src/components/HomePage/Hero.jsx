@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { media } from "../../constants/links";
 
-export default function Hero() {
+export default function Hero({ heroImage = media.heroImage }) {
   const sectionRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -22,7 +22,7 @@ export default function Hero() {
       className="relative min-h-screen w-full overflow-hidden"
     >
       <motion.img
-        src={media.heroImage}
+        src={heroImage}
         alt="The House of Maya"
         style={{ y: imageY }}
         className="

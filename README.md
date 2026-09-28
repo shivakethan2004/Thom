@@ -12,6 +12,13 @@ npm install
 npm run dev
 ```
 
+## Supabase
+
+Copy `.env.example` to `.env` and set `VITE_SUPABASE_URL` and
+`VITE_SUPABASE_ANON_KEY` from your Supabase project settings. The client is
+available from `src/config/supabase.js`. Only use the anon key in this
+browser app; never put a service-role key in a `VITE_` variable.
+
 ## Where to edit things
 
 | What you want to change              | File                                  |
