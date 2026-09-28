@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "../ui/Button";
 import { posts } from "../../constants/links";
 const INSTAGRAM_HANDLE = "thehouseofmaya.in";
-const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 
 /* ---------------------------------------------------------------------
  * Leaf — matches the flourish used elsewhere on the site.
@@ -34,10 +33,12 @@ function Leaf({ className }) {
  */
 
 
-export default function InstagramFeed() {
+export default function InstagramFeed({ postItems = posts, instagramHandle = INSTAGRAM_HANDLE }) {
     const trackRef = useRef(null);
     const [atStart, setAtStart] = useState(true);
     const [atEnd, setAtEnd] = useState(false);
+    const handle = instagramHandle.replace(/^@/, "");
+    const instagramUrl = `https://www.instagram.com/${handle}/`;
 
     const scrollByAmount = (dir) => {
         const track = trackRef.current;
@@ -62,7 +63,7 @@ export default function InstagramFeed() {
                 <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
 
                 <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
-                    @{INSTAGRAM_HANDLE}
+                    @{handle}
                 </span>
                 <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
                     From Our Instagram
@@ -79,9 +80,9 @@ export default function InstagramFeed() {
                     onScroll={handleScroll}
                     className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2"
                 >
-                    {posts.map((post, i) => (
+                    {postItems.map((post, i) => (
                         <motion.a
-                            key={i}
+                            key={post.href || `${post.image}-${i}`}
                             href={post.href}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -138,7 +139,7 @@ export default function InstagramFeed() {
 
             {/* ---- CTA ---- */}
             <div className="mt-10 flex justify-center">
-                <Button href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" variant="outline">
+                <Button href={instagramUrl} target="_blank" rel="noopener noreferrer" variant="outline">
                     Follow on Instagram
                 </Button>
             </div>
