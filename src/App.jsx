@@ -69,9 +69,13 @@ export default function App() {
    * ------------------------------------------------------------
    * ENTRY SCREEN
    * ------------------------------------------------------------
+   *
+   * Skip the entry gate entirely for the admin dashboard — the
+   * client should be able to go straight to /Admin without first
+   * clicking through "ENTER THE HOUSE".
    */
 
-  if (!hasEntered) {
+  if (!hasEntered && location.pathname.toLowerCase() !== "/admin") {
     return <EntryScreen onEnter={handleEnterHouse} />;
   }
 
@@ -92,6 +96,11 @@ export default function App() {
 
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          {/* Admin dashboard lives OUTSIDE Layout — it has its own
+              header and must not inherit the public site's absolute-
+              positioned Navbar (that's what was causing the overlap). */}
+          <Route path="/Admin" element={<AdminDashboard />} />
+
           <Route element={<Layout />}>
             <Route
               path="/"
@@ -148,14 +157,6 @@ export default function App() {
               element={
                 // <PageTransition>
                   <StoryDetail />
-                // </PageTransition>
-              }
-            />
-            <Route
-              path="/Admin"
-              element={
-                // <PageTransition>
-                  <AdminDashboard />
                 // </PageTransition>
               }
             />
