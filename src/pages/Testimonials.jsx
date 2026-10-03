@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { testimonials } from "../constants/links";
+import { testimonials as defaultTestimonials } from "../constants/links";
+import { getPublicTestimonials } from "../config/publicContent";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -13,7 +15,19 @@ const pastelBackgrounds = [
 ];
 
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState(defaultTestimonials);
   const total = testimonials.length;
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicTestimonials().then((items) => {
+      if (!cancelled) setTestimonials(items);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <section className="relative bg-cream px-6 py-20 text-olive md:px-10 lg:py-28">
@@ -41,6 +55,7 @@ export default function Testimonials() {
                     ? "md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
                     : "md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
                 }`}
+                style={item.background_color ? { backgroundColor: item.background_color } : undefined}
               >
                 {/* ---- Copy ---- */}
                 <div

@@ -33,7 +33,11 @@ function Leaf({ className }) {
  */
 
 
-export default function InstagramFeed({ postItems = posts, instagramHandle = INSTAGRAM_HANDLE }) {
+export default function InstagramFeed({
+    postItems = posts,
+    instagramHandle = INSTAGRAM_HANDLE,
+    heading = {},
+}) {
     const trackRef = useRef(null);
     const [atStart, setAtStart] = useState(true);
     const [atEnd, setAtEnd] = useState(false);
@@ -63,13 +67,13 @@ export default function InstagramFeed({ postItems = posts, instagramHandle = INS
                 <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
 
                 <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
-                    @{handle}
+                    {heading.kicker || `@${handle}`}
                 </span>
                 <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
-                    From Our Instagram
+                    {heading.title || "From Our Instagram"}
                 </h2>
                 <p className="mt-3 max-w-md font-body text-sm text-olive/70">
-                    A little more of our world, one frame at a time.
+                    {heading.description || "A little more of our world, one frame at a time."}
                 </p>
             </div>
 

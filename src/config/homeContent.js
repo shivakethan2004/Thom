@@ -20,11 +20,25 @@ function contentValue(content, key, fallback) {
 }
 
 export async function getHomeContent() {
-  const [heroContent, philosophyContent, contactContent, slideRows, storyRows, filmRows, postRows] =
+  const [
+    heroContent,
+    philosophyContent,
+    contactContent,
+    storiesHeadingContent,
+    filmsHeadingContent,
+    instagramHeadingContent,
+    slideRows,
+    storyRows,
+    filmRows,
+    postRows,
+  ] =
     await Promise.all([
       loadSafely("hero section", () => getSiteSection("hero")),
       loadSafely("philosophy section", () => getSiteSection("philosophy")),
       loadSafely("contact section", () => getSiteSection("contact")),
+      loadSafely("stories heading", () => getSiteSection("home_stories")),
+      loadSafely("films heading", () => getSiteSection("home_films")),
+      loadSafely("Instagram heading", () => getSiteSection("home_instagram")),
       loadSafely("slideshow images", () => listPublishedRows("slideshow_images")),
       loadSafely("stories", () => listPublishedRows("stories")),
       loadSafely("films", () => listPublishedRows("films")),
@@ -39,6 +53,33 @@ export async function getHomeContent() {
 
   return {
     heroImage: contentValue(heroContent, "heroImage", media.heroImage),
+    storiesHeading: {
+      kicker: contentValue(storiesHeadingContent, "kicker", "STORIES"),
+      title: contentValue(storiesHeadingContent, "title", "Our Latest Stories"),
+      description: contentValue(
+        storiesHeadingContent,
+        "description",
+        "Real moments, honest emotions, timeless memories."
+      ),
+    },
+    filmsHeading: {
+      kicker: contentValue(filmsHeadingContent, "kicker", "FILMS"),
+      title: contentValue(filmsHeadingContent, "title", "Our Films"),
+      description: contentValue(
+        filmsHeadingContent,
+        "description",
+        "Cinematic tales of love, emotion and moments that move."
+      ),
+    },
+    instagramHeading: {
+      kicker: contentValue(instagramHeadingContent, "kicker", ""),
+      title: contentValue(instagramHeadingContent, "title", "From Our Instagram"),
+      description: contentValue(
+        instagramHeadingContent,
+        "description",
+        "A little more of our world, one frame at a time."
+      ),
+    },
     philosophy: {
       kicker: contentValue(philosophyContent, "kicker", philosophy.kicker),
       title: contentValue(philosophyContent, "title", philosophy.title),

@@ -149,14 +149,27 @@ export default function ListEditor({ table, title, fields, emptyRow, statusLabel
                     <label htmlFor={`${table}-${row.id}-${f.key}`} className="block font-body text-xs text-olive/60">
                       {f.label}
                     </label>
-                    <input
-                      id={`${table}-${row.id}-${f.key}`}
-                      type="text"
-                      value={row[f.key] || ""}
-                      onChange={(e) => handleFieldChange(row.id, f.key, e.target.value)}
-                      onBlur={() => handleBlurSave(row)}
-                      className="mt-1 w-full rounded-md border border-olive/15 bg-white px-2.5 py-2 font-body text-base text-olive outline-none transition-colors focus:border-olive"
-                    />
+                    {f.type === "textarea" ? (
+                      <textarea
+                        id={`${table}-${row.id}-${f.key}`}
+                        rows={4}
+                        value={row[f.key] || ""}
+                        onChange={(e) => handleFieldChange(row.id, f.key, e.target.value)}
+                        onBlur={() => handleBlurSave(row)}
+                        className="mt-1 w-full rounded-md border border-olive/15 bg-white px-2.5 py-2 font-body text-base text-olive outline-none transition-colors focus:border-olive"
+                      />
+                    ) : (
+                      <input
+                        id={`${table}-${row.id}-${f.key}`}
+                        type={f.type === "color" ? "color" : "text"}
+                        value={row[f.key] || (f.type === "color" ? "#000000" : "")}
+                        onChange={(e) => handleFieldChange(row.id, f.key, e.target.value)}
+                        onBlur={() => handleBlurSave(row)}
+                        className={`mt-1 w-full rounded-md border border-olive/15 bg-white px-2.5 py-2 font-body text-base text-olive outline-none transition-colors focus:border-olive ${
+                          f.type === "color" ? "h-11 cursor-pointer" : ""
+                        }`}
+                      />
+                    )}
                   </div>
                 ))}
                 {savingId === row.id && (

@@ -29,10 +29,13 @@ export default function Home() {
       <StoriesAndFilms
         storyItems={content?.stories}
         filmItems={content?.films}
+        storiesHeading={content?.storiesHeading}
+        filmsHeading={content?.filmsHeading}
       />
       <InstagramFeed
         postItems={content?.posts}
         instagramHandle={content?.contact?.instagramHandle}
+        heading={content?.instagramHeading}
       />
       <Contact contactInfo={content?.contact} />
     </>
