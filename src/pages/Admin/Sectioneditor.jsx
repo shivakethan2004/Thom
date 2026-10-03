@@ -18,9 +18,22 @@ export default function SectionEditor({ section, title, fields }) {
   }
 
   async function handleSave() {
+    const missingField = fields.find(
+      (field) => field.required && !content[field.key]?.trim()
+    );
+    if (missingField) {
+      setStatus(`${missingField.label} cannot be empty.`);
+      return;
+    }
+
     setStatus("saving");
     try {
-      await saveSiteSection(section, content);
+      const updatedContent = { ...content };
+      fields.forEach((field) => {
+        if (field.required) updatedContent[field.key] = content[field.key].trim();
+      });
+      await saveSiteSection(section, updatedContent);
+      setContent(updatedContent);
       setStatus("saved");
       setTimeout(() => setStatus(""), 1500);
     } catch (e) {
@@ -38,7 +51,7 @@ export default function SectionEditor({ section, title, fields }) {
         {fields.map((f) => (
           <div key={f.key}>
             <label htmlFor={`section-${section}-${f.key}`} className="block font-body text-sm text-olive/65">
-              {f.label}
+              {f.label}{f.required ? " *" : ""}
             </label>
             {f.preview === "image" && content[f.key] && (
               <img
@@ -51,6 +64,7 @@ export default function SectionEditor({ section, title, fields }) {
               <textarea
                 id={`section-${section}-${f.key}`}
                 rows={3}
+                required={f.required}
                 value={content[f.key] || ""}
                 onChange={(e) => handleChange(f.key, e.target.value)}
                 className="mt-1.5 w-full rounded-md border border-olive/20 bg-cream/50 px-3 py-2.5 font-body text-base text-olive outline-none transition-colors focus:border-olive"
@@ -59,6 +73,7 @@ export default function SectionEditor({ section, title, fields }) {
               <input
                 id={`section-${section}-${f.key}`}
                 type="text"
+                required={f.required}
                 value={content[f.key] || ""}
                 onChange={(e) => handleChange(f.key, e.target.value)}
                 className="mt-1.5 w-full rounded-md border border-olive/20 bg-cream/50 px-3 py-2.5 font-body text-base text-olive outline-none transition-colors focus:border-olive"

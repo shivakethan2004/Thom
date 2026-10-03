@@ -1,4 +1,8 @@
-import { films as defaultFilms, stories as defaultStories } from "../constants/links";
+import {
+  films as defaultFilms,
+  stories as defaultStories,
+  testimonials as defaultTestimonials,
+} from "../constants/links";
 import { supabase } from "./supabase";
 import { listPublishedRows } from "./Admincontent";
 
@@ -48,6 +52,23 @@ export async function getPublicFilms() {
   } catch (error) {
     console.warn("Unable to load films from Supabase; using local films.", error);
     return defaultFilms;
+  }
+}
+
+export async function getPublicTestimonials() {
+  try {
+    const rows = await listPublishedRows("testimonials");
+    return rows
+      .filter((row) => row.name && row.text && row.url)
+      .map((row) => ({
+        name: row.name,
+        text: row.text,
+        url: row.url,
+        background_color: row.background_color || "",
+      }));
+  } catch (error) {
+    console.warn("Unable to load testimonials from Supabase; using local testimonials.", error);
+    return defaultTestimonials;
   }
 }
 

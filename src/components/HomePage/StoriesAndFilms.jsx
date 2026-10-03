@@ -196,7 +196,20 @@ function FilmCard({ film }) {
   );
 }
 
-export default function StoriesAndFilms({ storyItems = stories, filmItems = films }) {
+export default function StoriesAndFilms({
+  storyItems = stories,
+  filmItems = films,
+  storiesHeading = {
+    kicker: "STORIES",
+    title: "Our Latest Stories",
+    description: "Real moments, honest emotions, timeless memories.",
+  },
+  filmsHeading = {
+    kicker: "FILMS",
+    title: "Our Films",
+    description: "Cinematic tales of love, emotion and moments that move.",
+  },
+}) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -246,13 +259,13 @@ export default function StoriesAndFilms({ storyItems = stories, filmItems = film
             <Leaf className="absolute right-0 top-2 hidden h-16 w-10 -scale-x-100 text-olive/30 md:block" />
 
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
-              STORIES
+              {storiesHeading.kicker}
             </span>
             <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
-              Our Latest Stories
+              {storiesHeading.title}
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">
-              Real moments, honest emotions, timeless memories.
+              {storiesHeading.description}
             </p>
           </div>
 
@@ -313,13 +326,13 @@ export default function StoriesAndFilms({ storyItems = stories, filmItems = film
           {/* ---- Films header ---- */}
           <div className="flex flex-col items-center text-center">
             <span className="font-body text-[0.65rem] tracking-widest2 text-olive/60">
-              FILMS
+              {filmsHeading.kicker}
             </span>
             <h2 className="mt-3 font-accent text-3xl font-light text-olive md:text-4xl">
-              Our Films
+              {filmsHeading.title}
             </h2>
             <p className="mt-3 max-w-md font-body text-sm text-olive/70">
-              Cinematic tales of love, emotion and moments that move.
+              {filmsHeading.description}
             </p>
           </div>
 

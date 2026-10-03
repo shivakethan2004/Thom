@@ -3,13 +3,19 @@ import { supabase } from "../../config/supabase";
 import AdminLogin from "./Adminlogin";
 import SectionEditor from "./Sectioneditor";
 import ListEditor from "./Listeditor";
+import EntryGridEditor from "./EntryGridEditor";
 
 const TABS = [
   { id: "hero", label: "Hero Image" },
+  { id: "entry-grid", label: "Entry Screen Grid" },
   { id: "philosophy", label: "Philosophy" },
   { id: "slideshow", label: "Slideshow" },
   { id: "stories", label: "Stories" },
   { id: "films", label: "Films" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "stories-heading", label: "Stories Text" },
+  { id: "films-heading", label: "Films Text" },
+  { id: "instagram-heading", label: "Instagram Text" },
   { id: "instagram", label: "Instagram" },
   { id: "contact", label: "Contact" },
 ];
@@ -86,6 +92,8 @@ export default function AdminDashboard() {
             />
           )}
 
+          {tab === "entry-grid" && <EntryGridEditor />}
+
           {tab === "philosophy" && (
             <SectionEditor
               section="philosophy"
@@ -94,6 +102,42 @@ export default function AdminDashboard() {
                 { key: "kicker", label: "Kicker (small label)", type: "text" },
                 { key: "title", label: "Title", type: "textarea" },
                 { key: "body", label: "Body", type: "textarea" },
+              ]}
+            />
+          )}
+
+          {tab === "stories-heading" && (
+            <SectionEditor
+              section="home_stories"
+              title="Homepage Stories Heading"
+              fields={[
+                { key: "kicker", label: "Small label", type: "text", required: true },
+                { key: "title", label: "Heading", type: "text", required: true },
+                { key: "description", label: "Description", type: "textarea", required: true },
+              ]}
+            />
+          )}
+
+          {tab === "films-heading" && (
+            <SectionEditor
+              section="home_films"
+              title="Homepage Films Heading"
+              fields={[
+                { key: "kicker", label: "Small label", type: "text", required: true },
+                { key: "title", label: "Heading", type: "text", required: true },
+                { key: "description", label: "Description", type: "textarea", required: true },
+              ]}
+            />
+          )}
+
+          {tab === "instagram-heading" && (
+            <SectionEditor
+              section="home_instagram"
+              title="Homepage Instagram Heading"
+              fields={[
+                { key: "kicker", label: "Small label", type: "text", required: true },
+                { key: "title", label: "Heading", type: "text", required: true },
+                { key: "description", label: "Description", type: "textarea", required: true },
               ]}
             />
           )}
@@ -169,6 +213,25 @@ export default function AdminDashboard() {
                 { key: "href", label: "Link (e.g. /films/1)", type: "text" },
               ]}
               emptyRow={{ title: "", category: "", vimeo_id: "", vimeo_hash: "", href: "" }}
+            />
+          )}
+
+          {tab === "testimonials" && (
+            <ListEditor
+              table="testimonials"
+              title="Testimonials"
+              fields={[
+                { key: "name", label: "Heading", type: "text" },
+                { key: "text", label: "Description", type: "textarea" },
+                { key: "background_color", label: "Card background color", type: "color" },
+                { key: "url", label: "Photo URL", type: "text", preview: "image" },
+              ]}
+              emptyRow={{
+                name: "",
+                text: "",
+                background_color: "#F7EFE7",
+                url: "",
+              }}
             />
           )}
 
