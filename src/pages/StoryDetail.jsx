@@ -2,7 +2,6 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 import { ArrowLeft } from "lucide-react";
 import GalleryEmbed from "../components/Gallery/GalleryEmbed";
-import { getGalleryBySlug } from "../constants/stories/galleries";
 import { getPublicStoryBySlug } from "../config/publicContent";
 
 function GalleryLoadingSkeleton() {
@@ -18,19 +17,28 @@ function GalleryLoadingSkeleton() {
 
 export default function StoryDetail() {
   const { slug } = useParams();
-  const [story, setStory] = useState(() => getGalleryBySlug(slug));
+  const [story, setStory] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isGalleryLoaded, setIsGalleryLoaded] = useState(false);
   const [hasGalleryError, setHasGalleryError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    setStory(getGalleryBySlug(slug));
+    setStory(null);
+    setLoading(true);
     getPublicStoryBySlug(slug)
-      .then((publishedStory) => {
-        if (!cancelled && publishedStory) setStory(publishedStory);
+      .then((publicStory) => {
+        if (!cancelled) {
+          setStory(publicStory);
+          setLoading(false);
+        }
       })
       .catch((error) => {
         console.warn("Unable to load story gallery from Supabase.", error);
+        if (!cancelled) {
+          setStory(null);
+          setLoading(false);
+        }
       });
 
     return () => {
@@ -61,6 +69,14 @@ export default function StoryDetail() {
     setIsGalleryLoaded(true);
     setHasGalleryError(true);
   }, []);
+
+  if (loading) {
+    return (
+      <section className="relative w-full bg-cream px-6 py-16 text-center text-olive md:px-12 md:py-24">
+        <p className="font-body text-sm text-olive/60">Loading story…</p>
+      </section>
+    );
+  }
 
   if (!story) {
     return (

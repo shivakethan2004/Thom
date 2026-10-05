@@ -8,6 +8,7 @@ import BloomOverlay from "./components/PageTransition/BloomOverlay";
 import GrainOverlay from "./components/PageTransition/GrainOverlay";
 import EntryScreen from "./components/EntryScreen/EntryScreen";
 import StoryDetail from "./pages/StoryDetail";
+import FilmDetail from "./pages/FilmDetail";
 import { motion as motionConfig } from "./config/motion";
 import AdminDashboard from "./pages/Admin/Admindashboard";
 import Home from "./pages/Home";
@@ -75,7 +76,10 @@ export default function App() {
    * clicking through "ENTER THE HOUSE".
    */
 
-  if (!hasEntered && location.pathname.toLowerCase() !== "/admin") {
+  const isSharedDetail =
+    /^\/stories\/[^/]+$/i.test(location.pathname) ||
+    /^\/films\/[^/]+$/i.test(location.pathname);
+  if (!hasEntered && location.pathname.toLowerCase() !== "/admin" && !isSharedDetail) {
     return <EntryScreen onEnter={handleEnterHouse} />;
   }
 
@@ -144,6 +148,7 @@ export default function App() {
                 // </PageTransition>
               }
             />
+            <Route path="/films/:filmId" element={<FilmDetail />} />
             <Route
               path="/contact"
               element={

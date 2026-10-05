@@ -1,16 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Phone, Loader2, CheckCircle2 } from "lucide-react";
 import { contact } from "../constants/links";
-
-/**
- * Formspree endpoint
- * -----------------------------------------------------------------------
- * Replace YOUR_FORM_ID below with the ID Formspree gives you after you
- * create a form at https://formspree.io (Dashboard → New Form). It looks
- * like "https://formspree.io/f/abcdwxyz".
- * -----------------------------------------------------------------------
- */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+import { getSiteSection } from "../config/Admincontent";
+import { supabase } from "../config/supabase";
 
 const HEAR_ABOUT_OPTIONS = [
   "Instagram",
@@ -33,6 +25,20 @@ const initialFormState = {
 export default function Contact() {
   const [form, setForm] = useState(initialFormState);
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [contactEmail, setContactEmail] = useState(contact.email);
+  const [submissionId, setSubmissionId] = useState(() => crypto.randomUUID());
+
+  useEffect(() => {
+    getSiteSection("contact")
+      .then((content) => {
+        if (typeof content.email === "string" && content.email.trim()) {
+          setContactEmail(content.email.trim());
+        }
+      })
+      .catch((error) => {
+        console.warn("Unable to load the contact email from Supabase.", error);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,26 +50,25 @@ export default function Contact() {
     setStatus("submitting");
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "Groom Name": form.groomName,
-          "Bride Name": form.brideName,
-          Contact: form.contactNumber,
-          Email: form.email,
-          "Event Details": form.eventDetails,
-          "How did you hear about us": form.hearAboutUs,
-        }),
+      const { error } = await supabase.functions.invoke("contact", {
+        body: {
+          submissionId,
+          groomName: form.groomName,
+          brideName: form.brideName,
+          contactNumber: form.contactNumber,
+          email: form.email,
+          eventDetails: form.eventDetails,
+          hearAboutUs: form.hearAboutUs,
+        },
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setForm(initialFormState);
-      } else {
-        setStatus("error");
-      }
-    } catch {
+      if (error) throw error;
+
+      setStatus("success");
+      setForm(initialFormState);
+      setSubmissionId(crypto.randomUUID());
+    } catch (error) {
+      console.error("Unable to submit the contact form.", error);
       setStatus("error");
     }
   };
@@ -91,11 +96,11 @@ export default function Contact() {
 
           <div className="mt-8 flex flex-col gap-4">
             <a
-              href={`mailto:${contact.email}`}
+              href={`mailto:${contactEmail}`}
               className="group flex items-center gap-3 font-body text-sm text-olive/80 transition-colors hover:text-olive"
             >
               <Mail size={16} className="text-olive/50 transition-colors group-hover:text-olive" />
-              {contact.email}
+              {contactEmail}
             </a>
             <a
               href={`tel:${contact.phone.replace(/\s+/g, "")}`}
@@ -201,7 +206,7 @@ export default function Contact() {
               {status === "error" && (
                 <p className="font-body text-xs text-red-700">
                   Something went wrong sending your message. Please try
-                  again, or email us directly at {contact.email}.
+                  again, or email us directly at {contactEmail}.
                 </p>
               )}
 
