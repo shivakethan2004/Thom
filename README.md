@@ -19,6 +19,32 @@ Copy `.env.example` to `.env` and set `VITE_SUPABASE_URL` and
 available from `src/config/supabase.js`. Only use the anon key in this
 browser app; never put a service-role key in a `VITE_` variable.
 
+### Contact form email notifications
+
+The contact form saves submissions to `public.contact_submissions` and uses
+the `contact` Edge Function to send an email through Resend. To enable it:
+
+1. Run `supabase/contact-submissions.sql` in the Supabase SQL Editor. This
+   creates the private submissions table and permits authenticated dashboard
+   users to read submissions.
+2. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` as Supabase Edge Function
+   secrets. The sender address must be verified with Resend.
+3. Deploy the function with `supabase functions deploy contact`.
+4. Set the recipient email in the Admin dashboard's Contact Info section.
+
+The function reads the notification recipient from `site_content`'s `contact`
+section. Contact submissions are only accessible to the Edge Function's
+service role; no browser-side service-role key is needed.
+
+### Unlisted story and film links
+
+The Stories and Films admin editors provide a copy-link button for each item.
+Those direct links work for both published and unpublished items, while the
+public lists continue to show only published items. Apply the updated
+`supabase/unlisted-share-links.sql` policies to allow direct loading of
+unpublished content. These are unlisted links, not access-controlled links:
+anyone with a link can view the item.
+
 ## Where to edit things
 
 | What you want to change              | File                                  |

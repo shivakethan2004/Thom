@@ -4,6 +4,7 @@ import AdminLogin from "./Adminlogin";
 import SectionEditor from "./Sectioneditor";
 import ListEditor from "./Listeditor";
 import EntryGridEditor from "./EntryGridEditor";
+import ContactSubmissions from "./ContactSubmissions";
 
 const TABS = [
   { id: "hero", label: "Hero Image" },
@@ -18,6 +19,7 @@ const TABS = [
   { id: "instagram-heading", label: "Instagram Text" },
   { id: "instagram", label: "Instagram" },
   { id: "contact", label: "Contact" },
+  { id: "contact-submissions", label: "Submissions" },
 ];
 
 export default function AdminDashboard() {
@@ -155,6 +157,8 @@ export default function AdminDashboard() {
               ]}
             />
           )}
+
+          {tab === "contact-submissions" && <ContactSubmissions />}
 
           {tab === "slideshow" && (
             <ListEditor

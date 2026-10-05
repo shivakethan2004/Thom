@@ -77,7 +77,6 @@ export async function getPublicStoryBySlug(slug) {
     .from("stories")
     .select("slug, title, subtitle, date, slideshow_id, script_src, preview_src")
     .eq("slug", slug)
-    .eq("is_active", true)
     .maybeSingle();
 
   if (error) throw error;
@@ -90,5 +89,23 @@ export async function getPublicStoryBySlug(slug) {
     slideshowId: data.slideshow_id,
     scriptSrc: data.script_src,
     previewSrc: data.preview_src,
+  };
+}
+
+export async function getPublicFilmById(id) {
+  const { data, error } = await supabase
+    .from("films")
+    .select("id, title, category, vimeo_id, vimeo_hash")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+
+  return {
+    title: data.title,
+    category: data.category || "FILM",
+    vimeoId: String(data.vimeo_id || ""),
+    vimeoHash: data.vimeo_hash || "",
   };
 }

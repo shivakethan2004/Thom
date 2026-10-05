@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUp, ArrowDown, Trash2, Plus, Eye, EyeOff } from "lucide-react";
+import { ArrowUp, ArrowDown, Trash2, Plus, Eye, EyeOff, Link2 } from "lucide-react";
 import {
   listRows,
   insertRow,
@@ -21,6 +21,7 @@ export default function ListEditor({ table, title, fields, emptyRow, statusLabel
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState(null);
   const [error, setError] = useState("");
+  const [copiedId, setCopiedId] = useState(null);
 
   useEffect(() => {
     async function loadRows() {
@@ -83,6 +84,29 @@ export default function ListEditor({ table, title, fields, emptyRow, statusLabel
       setRows((rs) => rs.filter((r) => r.id !== row.id));
     } catch (e) {
       setError(e.message);
+    }
+  }
+
+  async function handleCopyShareLink(row) {
+    const path =
+      table === "stories"
+        ? row.slug && `/stories/${encodeURIComponent(row.slug)}`
+        : table === "films"
+          ? row.id && `/films/${encodeURIComponent(row.id)}`
+          : null;
+
+    if (!path) {
+      setError(`Add a ${table === "stories" ? "slug" : "film ID"} before copying a share link.`);
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}${path}`);
+      setCopiedId(row.id);
+      setError("");
+      window.setTimeout(() => setCopiedId(null), 2000);
+    } catch (copyError) {
+      setError(`Unable to copy the share link: ${copyError.message}`);
     }
   }
 
@@ -178,6 +202,18 @@ export default function ListEditor({ table, title, fields, emptyRow, statusLabel
               </div>
 
               <div className="flex flex-shrink-0 flex-col items-center gap-1">
+                {(table === "stories" || table === "films") && (
+                  <button
+                    type="button"
+                    onClick={() => handleCopyShareLink(row)}
+                    aria-label={`Copy share link for ${row.title || "this item"}`}
+                    title={copiedId === row.id ? "Link copied" : "Copy unlisted share link"}
+                    className="inline-flex items-center gap-1 rounded px-1 py-1 font-body text-[0.65rem] text-olive/60 hover:bg-olive/10"
+                  >
+                    <Link2 size={16} />
+                    {copiedId === row.id ? "Copied" : "Share"}
+                  </button>
+                )}
                 <button
                   onClick={() => handleMove(row, "up")}
                   disabled={i === 0}
