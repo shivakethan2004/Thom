@@ -62,15 +62,16 @@ const EntryScreen = ({ onEnter }) => {
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute left-1/2 top-1/2 z-[2] h-[58%] w-full
-          -translate-x-1/2 -translate-y-1/2
-          md:h-[58%] md:w-full
-          lg:h-[62%] lg:w-[min(46vw,560px)]
-          xl:w-[min(40vw,600px)]
-        "
+    pointer-events-none absolute left-1/2 top-1/2 z-[2] h-[66%] w-full
+    -translate-x-1/2 -translate-y-1/2
+    md:h-[66%] md:w-full
+    lg:h-[72%] lg:w-[min(50vw,640px)]
+    xl:w-[min(44vw,700px)]
+    2xl:w-[760px]
+  "
         style={{
           background:
-            "linear-gradient(to bottom, rgba(253,252,243,0) 0%, rgba(253,252,243,0.85) 15%, rgba(253,252,243,0.98) 32%, rgba(253,252,243,0.985) 50%, rgba(253,252,243,0.98) 68%, rgba(253,252,243,0.85) 85%, rgba(253,252,243,0) 100%)",
+            "linear-gradient(to bottom, rgba(253,252,243,0) 0%, rgba(253,252,243,0.85) 13%, rgba(253,252,243,0.98) 28%, rgba(253,252,243,0.985) 50%, rgba(253,252,243,0.98) 72%, rgba(253,252,243,0.85) 87%, rgba(253,252,243,0) 100%)",
         }}
       />
 
