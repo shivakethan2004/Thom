@@ -1,14 +1,20 @@
-import React from "react";
-
-export const artist = {
-  name: "Sandeep",
-  bio: "Sandeep is a passionate photographer and storyteller, dedicated to capturing the essence of every moment. With a keen eye for detail and a love for creativity, he brings stories to life through his lens.",
-  image:
-    "https://images-pw.pixieset.com/elementfield/bOGl9zb/Sandeep-998b8475-2500.jpg",
-  signature: "/images/signature.png",
-};
+import { useEffect, useState } from "react";
+import { artist as defaultArtist } from "../constants/links";
+import { getPublicArtist } from "../config/publicContent";
 
 export default function ArtistSection() {
+  const [artist, setArtist] = useState(defaultArtist);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicArtist().then((content) => {
+      if (!cancelled) setArtist(content);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-cream px-6 pb-20 pt-32 sm:pt-36 md:px-16 md:pt-40 lg:pb-28">
       {/* faint decorative branch, background right */}
@@ -43,7 +49,7 @@ export default function ArtistSection() {
             <img
               src={artist.image}
               alt={artist.name}
-              className="h-[460px] w-full object-cover grayscale contrast-110 "
+              className="h-[460px] w-full object-cover"
             />
           </div>
 
@@ -68,10 +74,8 @@ export default function ArtistSection() {
           </div>
           <div className="mb-6 h-px w-24 bg-[#c9c0a6]" />
 
-          <h1 className="font-serif text-5xl leading-[1.1] text-[#2c2a22] md:text-6xl">
-            The mind
-            <br />
-            behind the <em className="italic text-[#4a5a3a]">stories</em>.
+          <h1 className="whitespace-pre-line font-serif text-5xl leading-[1.1] text-[#2c2a22] md:text-6xl">
+            {artist.heading}
           </h1>
 
           <p className="mt-8 text-[15px] leading-relaxed text-[#4a473c]">
@@ -79,9 +83,9 @@ export default function ArtistSection() {
           </p>
 
           <div className="mt-10">
-            {artist.signature ? (
+            {defaultArtist.signature ? (
               <img
-                src={artist.signature}
+                src={defaultArtist.signature}
                 alt={`${artist.name} signature`}
                 className="h-14 w-auto object-contain"
               />

@@ -19,6 +19,14 @@ Copy `.env.example` to `.env` and set `VITE_SUPABASE_URL` and
 available from `src/config/supabase.js`. Only use the anon key in this
 browser app; never put a service-role key in a `VITE_` variable.
 
+### About page content
+
+Run `supabase/about-section.sql` in the Supabase SQL Editor to create/seed the
+About section in `site_content` and allow public reads plus authenticated
+dashboard edits. The About tab in `/Admin` manages the heading, biography,
+and portrait image URL. The portrait is displayed as provided, so use a
+black-and-white source image when that look is desired.
+
 ### Contact form email notifications
 
 The contact form saves submissions to `public.contact_submissions` and uses
