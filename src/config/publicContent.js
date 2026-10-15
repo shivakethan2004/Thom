@@ -1,10 +1,11 @@
 import {
+  artist as defaultArtist,
   films as defaultFilms,
   stories as defaultStories,
   testimonials as defaultTestimonials,
 } from "../constants/links";
 import { supabase } from "./supabase";
-import { listPublishedRows } from "./Admincontent";
+import { getSiteSection, listPublishedRows } from "./Admincontent";
 
 function toStory(row) {
   return {
@@ -69,6 +70,25 @@ export async function getPublicTestimonials() {
   } catch (error) {
     console.warn("Unable to load testimonials from Supabase; using local testimonials.", error);
     return defaultTestimonials;
+  }
+}
+
+export async function getPublicArtist() {
+  try {
+    const content = await getSiteSection("about");
+    const valueOrDefault = (value, fallback) =>
+      typeof value === "string" && value.trim() ? value.trim() : fallback;
+
+    return {
+      ...defaultArtist,
+      heading: valueOrDefault(content.heading, defaultArtist.heading),
+      name: valueOrDefault(content.name, defaultArtist.name),
+      bio: valueOrDefault(content.bio, defaultArtist.bio),
+      image: valueOrDefault(content.image, defaultArtist.image),
+    };
+  } catch (error) {
+    console.warn("Unable to load About content from Supabase; using local content.", error);
+    return defaultArtist;
   }
 }
 

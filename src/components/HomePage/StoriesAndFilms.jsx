@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Play, X } from "lucide-react";
 import Button from "../ui/Button";
 import { stories, films, cta } from "../../constants/links";
+import { fetchVimeoOEmbed, upgradeVimeoThumbnail } from "../../utils/vimeo";
 
 function Leaf({ className }) {
   return (
@@ -99,7 +100,36 @@ function ParallaxLeaf({
 function FilmCard({ film }) {
   const cardRef = useRef(null);
   const [playing, setPlaying] = useState(false);
-  const thumbnailUrl = `https://vumbnail.com/${film.vimeoId}.jpg`;
+  const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [originalThumbnailUrl, setOriginalThumbnailUrl] = useState(null);
+  const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadThumbnail() {
+      try {
+        const data = await fetchVimeoOEmbed(film.vimeoId, film.vimeoHash);
+        if (cancelled) return;
+
+        const originalUrl = data.thumbnail_url;
+        setOriginalThumbnailUrl(originalUrl);
+        setThumbnailUrl(upgradeVimeoThumbnail(originalUrl));
+      } catch (error) {
+        console.warn(`Unable to load Vimeo oEmbed data for ${film.vimeoId}:`, error);
+        if (!cancelled && !film.vimeoHash) {
+          setThumbnailUrl(`https://vumbnail.com/${film.vimeoId}.jpg`);
+        }
+      }
+    }
+
+    loadThumbnail();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [film.vimeoId, film.vimeoHash]);
+
   useEffect(() => {
     if (playing && cardRef.current) {
       // Wait a tick so the layout/expand animation has started before we scroll,
@@ -151,7 +181,11 @@ function FilmCard({ film }) {
           >
             <iframe
               title={film.title}
-              src={`https://player.vimeo.com/video/${film.vimeoId}?h=${film.vimeoHash}&autoplay=1`}
+              src={`https://player.vimeo.com/video/${film.vimeoId}${
+                film.vimeoHash
+                  ? `?h=${film.vimeoHash}&autoplay=1`
+                  : "?autoplay=1"
+              }`}
               className="h-full w-full"
               frameBorder="0"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -170,13 +204,24 @@ function FilmCard({ film }) {
             transition={{ duration: 0.4 }}
             className="group relative block aspect-video w-full text-left"
           >
-            <img
-              src={thumbnailUrl}
-              alt={film.title}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            {thumbnailUrl && (
+              <img
+                src={thumbnailUrl}
+                alt={film.title}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setThumbnailLoaded(true)}
+                onError={() => {
+                  setThumbnailLoaded(false);
+                  setThumbnailUrl((currentUrl) =>
+                    currentUrl !== originalThumbnailUrl ? originalThumbnailUrl : null,
+                  );
+                }}
+                className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                  thumbnailLoaded ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            )}
             <div className="absolute inset-0 bg-olive-900/30 transition-colors duration-300 group-hover:bg-olive-900/15" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream/90 text-olive transition-transform duration-300 group-hover:scale-110">
@@ -337,7 +382,7 @@ export default function StoriesAndFilms({
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {filmItems.map((film) => (
+            {filmItems.slice(0, 5).map((film) => (
               <FilmCard key={film.vimeoId} film={film} />
             ))}
           </div>

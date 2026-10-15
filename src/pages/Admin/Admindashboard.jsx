@@ -9,6 +9,7 @@ import ContactSubmissions from "./ContactSubmissions";
 const TABS = [
   { id: "hero", label: "Hero Image" },
   { id: "entry-grid", label: "Entry Screen Grid" },
+  { id: "about", label: "About" },
   { id: "philosophy", label: "Philosophy" },
   { id: "slideshow", label: "Slideshow" },
   { id: "stories", label: "Stories" },
@@ -95,6 +96,18 @@ export default function AdminDashboard() {
           )}
 
           {tab === "entry-grid" && <EntryGridEditor />}
+
+          {tab === "about" && (
+            <SectionEditor
+              section="about"
+              title="About the Artist"
+              fields={[
+                { key: "heading", label: "Heading", type: "textarea", required: true },
+                { key: "bio", label: "Biography", type: "textarea", required: true },
+                { key: "image", label: "Portrait image URL (use a black-and-white image if desired)", type: "text", preview: "image", required: true },
+              ]}
+            />
+          )}
 
           {tab === "philosophy" && (
             <SectionEditor

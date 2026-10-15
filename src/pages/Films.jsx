@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { films as defaultFilms } from "../constants/links";
 import { getPublicFilms } from "../config/publicContent";
+import { fetchVimeoOEmbed, upgradeVimeoThumbnail } from "../utils/vimeo";
 
 /* ---------------------------------------------------------------------
  * Leaf — small decorative flourish flanking the page kicker, matching
@@ -34,26 +35,40 @@ function FilmRow({ film, index }) {
   const rowRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState(film.duration ?? null);
-
-  const thumbnailUrl = `https://vumbnail.com/${film.vimeoId}.jpg`;
+  const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [originalThumbnailUrl, setOriginalThumbnailUrl] = useState(null);
+  const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
 
   useEffect(() => {
-    if (duration !== null) return;
     let cancelled = false;
 
-    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${film.vimeoId}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!cancelled && data?.duration) {
-          setDuration(formatDuration(data.duration));
+    async function loadOEmbed() {
+      try {
+        const data = await fetchVimeoOEmbed(film.vimeoId, film.vimeoHash);
+        if (cancelled) return;
+
+        const originalUrl = data.thumbnail_url;
+        setOriginalThumbnailUrl(originalUrl);
+        setThumbnailUrl(upgradeVimeoThumbnail(originalUrl));
+
+        const formattedDuration = formatDuration(data.duration);
+        if (formattedDuration !== null) {
+          setDuration(formattedDuration);
         }
-      })
-      .catch(() => {});
+      } catch (error) {
+        console.warn(`Unable to load Vimeo oEmbed data for ${film.vimeoId}:`, error);
+        if (!cancelled && !film.vimeoHash) {
+          setThumbnailUrl(`https://vumbnail.com/${film.vimeoId}.jpg`);
+        }
+      }
+    }
+
+    loadOEmbed();
 
     return () => {
       cancelled = true;
     };
-  }, [film.vimeoId, duration]);
+  }, [film.vimeoId, film.vimeoHash]);
 
   useEffect(() => {
     if (playing && rowRef.current) {
@@ -95,7 +110,11 @@ function FilmRow({ film, index }) {
                 </button>
                 <iframe
                   title={film.title}
-                  src={`https://player.vimeo.com/video/${film.vimeoId}?h=${film.vimeoHash}&autoplay=1`}
+                  src={`https://player.vimeo.com/video/${film.vimeoId}${
+                    film.vimeoHash
+                      ? `?h=${film.vimeoHash}&autoplay=1`
+                      : "?autoplay=1"
+                  }`}
                   className="h-full w-full"
                   frameBorder="0"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -114,13 +133,24 @@ function FilmRow({ film, index }) {
                 transition={{ duration: 0.3 }}
                 className="group relative block aspect-video w-full text-left"
               >
-                <img
-                  src={thumbnailUrl}
-                  alt={film.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {thumbnailUrl && (
+                  <img
+                    src={thumbnailUrl}
+                    alt={film.title}
+                    loading="lazy"
+                    decoding="async"
+                    onLoad={() => setThumbnailLoaded(true)}
+                    onError={() => {
+                      setThumbnailLoaded(false);
+                      setThumbnailUrl((currentUrl) =>
+                        currentUrl !== originalThumbnailUrl ? originalThumbnailUrl : null,
+                      );
+                    }}
+                    className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                      thumbnailLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                )}
                 <div className="absolute inset-0 bg-olive-900/25 transition-colors duration-300 group-hover:bg-olive-900/10" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream/90 text-olive shadow-lg transition-transform duration-300 group-hover:scale-110">

@@ -191,6 +191,7 @@ export const testimonials = [
 
 export const artist = {
   name: "Sandeep",
+  heading: "The mind\nbehind the stories.",
   bio: "Sandeep is a passionate photographer and storyteller, dedicated to capturing the essence of every moment. With a keen eye for detail and a love for creativity, he brings stories to life through his lens.",
   image: "https://images-pw.pixieset.com/elementfield/bOGl9zb/Sandeep-998b8475-2500.jpg",
   signature: "/images/signature.png",
