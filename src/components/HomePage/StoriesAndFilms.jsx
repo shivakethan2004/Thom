@@ -315,7 +315,7 @@ export default function StoriesAndFilms({
           </div>
 
           {/* ---- Stories grid — arch photo + base floral accent ---- */}
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:gap-8 xl:grid-cols-4">
             {storyItems.slice(0, 4).map((story) => {
               const isExternal = /^https?:\/\//.test(story.href);
               const StoryLink = isExternal ? "a" : Link;
@@ -329,7 +329,7 @@ export default function StoriesAndFilms({
                 {...destination}
                 className="group flex flex-col items-center text-center"
               >
-                <div className="relative h-74 w-54 sm:h-52 sm:w-52 md:h-64 md:w-64 lg:h-102 lg:w-72">
+                <div className="relative aspect-[3/4] w-full max-w-72">
                   <div className="h-full w-full overflow-hidden rounded-tl-full rounded-tr-full ">
                     <img
                       src={story.image}
@@ -381,8 +381,8 @@ export default function StoriesAndFilms({
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {filmItems.slice(0, 5).map((film) => (
+          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+            {filmItems.slice(0, 3).map((film) => (
               <FilmCard key={film.vimeoId} film={film} />
             ))}
           </div>
